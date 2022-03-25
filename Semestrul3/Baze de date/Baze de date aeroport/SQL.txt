@@ -1,0 +1,361 @@
+10.01
+a.
+CREATE TABLE ZBORURI
+(nrz number(6),
+de_la varchar2(50),
+la varchar2(50),
+distanta number(8),
+plecare date,
+sosire date
+);
+
+b.
+CREATE TABLE AERONAVE
+(idav number(6),
+numeav varchar2(100),
+gama_croaziera number(8)
+);
+
+c.
+CREATE TABLE CERTIFICARE
+(idan number(6),
+idav number(6)
+);
+
+d.
+CREATE TABLE ANGAJATI
+(idan number(6),
+numean varchar2(100),
+functie varchar2(50),
+salariu number(6)
+);
+
+e.
+ALTER TABLE ZBORURI 
+ADD CONSTRAINT ZBORURI_PK PRIMARY KEY (nrz);
+
+ALTER TABLE AERONAVE
+ADD CONSTRAINT AERONAVE_PK PRIMARY KEY (idav);
+
+ALTER TABLE CERTIFICARE
+ADD CONSTRAINT CERTIFICARE_PK PRIMARY KEY (idan,idav);
+
+ALTER TABLE ANGAJATI
+ADD CONSTRAINT ANGAJATI_PK PRIMARY KEY (idan);
+
+ALTER TABLE CERTIFICARE
+ADD CONSTRAINT CERTIFICARE_FK_IDAN
+  FOREIGN KEY (idan)
+  REFERENCES ANGAJATI (idan);
+
+ALTER TABLE CERTIFICARE
+ADD CONSTRAINT CERTIFICARE_FK_IDAV
+  FOREIGN KEY (idav)
+  REFERENCES AERONAVE(idav);
+
+f.
+ALTER TABLE ZBORURI
+ADD zi varchar2(5);
+
+10.02
+a.
+ALTER TABLE ZBORURI
+ADD CONSTRAINT check_zi_in
+  CHECK (zi IN ('Lu', 'Ma', 'Mi','Jo','Vi','Sa','Du'));
+
+b.
+
+ALTER TABLE ANGAJATI
+ADD CONSTRAINT check_functie_sal
+  CHECK ((FUNCTIE='director' AND salariu>10000)OR(FUNCTIE !='director' AND salariu <= 10000));
+
+
+INSERARI
+
+INSERT INTO ZBORURI
+(nrz,de_la,la,distanta,plecare,sosire,zi)
+VALUES
+(1, 'Munchen', 'Madrid', 3000, sysdate,sysdate+2/24,'Lu');
+INSERT INTO ZBORURI
+(nrz,de_la,la,distanta,plecare,sosire,zi)
+VALUES
+(2, 'Cluj-Napoca', 'Bucuresti', 501, sysdate+1,sysdate+1+1/24,'Ma');
+INSERT INTO ZBORURI
+(nrz,de_la,la,distanta,plecare,sosire,zi)
+VALUES
+(3, 'Cluj-Napoca', 'Frankfurt', 900, sysdate+2,sysdate+2+3/24,'Mi');
+
+
+INSERT INTO AERONAVE
+(idav,numeav,gama_croaziera)
+VALUES
+(1, 'BOEING 737-800',5420 );
+INSERT INTO AERONAVE
+(idav,numeav,gama_croaziera)
+VALUES
+(2, 'BOEING 737-700',6000 );
+INSERT INTO AERONAVE
+(idav,numeav,gama_croaziera)
+VALUES
+(3, 'BOEING 737-600',4600 );
+INSERT INTO AERONAVE
+(idav,numeav,gama_croaziera)
+VALUES
+(4, 'AIRBUS A380',7000 );
+INSERT INTO AERONAVE
+(idav,numeav,gama_croaziera)
+VALUES
+(5, 'AIRBUS A350',2000 );
+
+
+
+INSERT INTO ANGAJATI
+(idan,numean,functie,salariu)
+VALUES
+(1,'George Iulian','pilot',8000);
+
+INSERT INTO ANGAJATI
+(idan,numean,functie,salariu)
+VALUES
+(2,'Ioan Alexandru','pilot',7000);
+
+INSERT INTO ANGAJATI
+(idan,numean,functie,salariu)
+VALUES
+(3,'Ionescu Dan','director',10010);
+
+INSERT INTO ANGAJATI
+(idan,numean,functie,salariu)
+VALUES
+(4,'Popescu Andrei','pilot',6000);
+
+INSERT INTO ANGAJATI
+(idan,numean,functie,salariu)
+VALUES
+(5,'Georgescu Diana','mecanic',4000);
+
+
+
+
+
+INSERT INTO CERTIFICARE
+(idan,idav)
+VALUES
+(1,1);
+
+INSERT INTO CERTIFICARE
+(idan,idav)
+VALUES
+(1,2);
+
+INSERT INTO CERTIFICARE
+(idan,idav)
+VALUES
+(1,3);
+
+INSERT INTO CERTIFICARE
+(idan,idav)
+VALUES
+(2,3);
+
+INSERT INTO CERTIFICARE
+(idan,idav)
+VALUES
+(2,4);
+
+INSERT INTO CERTIFICARE
+(idan,idav)
+VALUES
+(4,1);
+
+INSERT INTO CERTIFICARE
+(idan,idav)
+VALUES
+(4,5);
+
+
+
+10.03
+a.
+select nrz,de_la,la,distanta,TO_CHAR(plecare, 'DD-MON-YYYY HH24:MI:SS'),TO_CHAR(sosire, 'DD-MON-YYYY HH24:MI:SS'),zi
+from ZBORURI
+where distanta>500 and distanta < 1000;
+b.
+select nrz,de_la,la,distanta,TO_CHAR(plecare, 'DD-MON-YYYY HH24:MI:SS'),TO_CHAR(sosire, 'DD-MON-YYYY HH24:MI:SS'),zi
+from ZBORURI
+where zi in (TO_CHAR('Ma'),TO_CHAR('Vi'))
+order by plecare;
+
+10.04
+a.
+select *
+from zboruri
+INNER JOIN aeronave
+on gama_croaziera > distanta 
+where numeav like 'BOEING%';
+b.
+
+select a.idan,a.idav as IDAV1, b.idav as IDAV2
+from certificare a
+join certificare b
+on a.idan=b.idan and a.idav<b.idav
+order by a.idan
+
+
+10.05
+a.
+select max(salariu)
+from angajati a, certificare c
+where a.idan = c.idan and c.idav in (select idav from aeronave where numeav like 'AIRBUS%');
+
+select max(salariu)
+from angajati an, certificare ce,aeronave av
+where  av.numeav like 'AIRBUS%' and an.idan=ce.idan and ce.idav=av.idav;
+
+select  salariu
+from angajati d, certificare e
+Where d.salariu >= all(
+select  salariu
+from angajati a, certificare c
+where a.idan = c.idan and c.idav in (select idav from aeronave where numeav like 'AIRBUS%' )) and d.idan=e.idan and e.idav in (select idav from aeronave where numeav like 'AIRBUS%' )
+
+b.
+select * 
+from aeronave 
+where idav in (
+        select certificare.idav 
+        from angajati, certificare 
+        where angajati.idan = certificare.idan and angajati.numean=to_char('Ioan Alexandru')
+              );
+10.06
+a.
+select numeav,count (c.idan) numar_piloti
+from aeronave a,certificare c
+where a.idav =c.idav
+group by numeav
+b.
+select unique functie ,avg(salariu)
+from angajati
+group by functie;
+
+10.7
+a.
+vezi mai sus dupa crearea tabelelor
+b.
+
+INSERT INTO AERONAVE
+(idav,numeav,gama_croaziera)
+VALUES
+(6, 'AIRBUS A200',2000 );
+
+delete from aeronave
+where idav not in (select idav from certificare);
+
+c.
+update zboruri
+set distanta=distanta-4
+WHERE de_la = to_char('Munchen') and la = to_char('Madrid')
+
+10.08
+Pentru a nu strica tabelele o sa ne folosim de copiile lor
+pentru exercitiile urmatoare
+
+create table copy_certificare
+as
+( select * from certificare);
+
+create table copy_angajati
+as
+( select * from angajati);
+
+create table copy_aeronave
+as
+( select * from aeronave);
+
+a.
+create or replace TRIGGER scadere_salariu
+AFTER DELETE
+   ON copy_certificare
+   FOR EACH ROW
+BEGIN
+  UPDATE copy_angajati 
+  set salariu=salariu-100
+  where copy_angajati.idan = :old.idan;
+   
+END;
+
+b.
+
+CREATE OR REPLACE TRIGGER update_gama_croaziera
+  BEFORE UPDATE OF gama_croaziera, idav
+  ON copy_aeronave
+  FOR EACH ROW
+DECLARE
+ CURSOR c_idav IS
+ SELECT idav FROM copy_certificare WHERE idav = :old.idav;
+
+BEGIN
+ 
+  FOR i_idav IN c_idav LOOP
+   IF c_idav%ROWCOUNT > 0 THEN 
+      RAISE_APPLICATION_ERROR(-20201,
+        'Nu puteti modifica gama de croaziera deoarece exista certificari pentru aceasta !');
+    END IF;
+  END LOOP; 
+
+END;
+
+c.
+create view PilotiAeronave as
+select numean , salariu, numeav,gama_croaziera
+from angajati a, certificare c, aeronave ae
+where c.idan=a.idan and ae.idav=c.idav;
+
+CREATE OR REPLACE TRIGGER insert_view_pilotiaeronave
+    INSTEAD OF INSERT ON pilotiaeronave
+    FOR EACH ROW
+DECLARE
+    idav_aeronave NUMBER;
+    idan_angajati NUMBER;
+BEGIN
+    select count(*) into idav_aeronave from aeronave;
+    select count(*) into idan_angajati from angajati;
+
+    idav_aeronave:=idav_aeronave+1;
+    idan_angajati:= idan_angajati+1;
+    
+    
+    -- insert into aeronave
+    INSERT INTO aeronave(idav,numeav,gama_croaziera)
+    VALUES(idav_aeronave,:NEW.numeav,:NEW.gama_croaziera);
+
+    
+    -- insert into angajati
+    INSERT INTO angajati(idan,numean,functie,salariu)
+    VALUES(idan_angajati,:NEW.numean,to_char('pilot'),:NEW.salariu);
+
+    --insert into certificare
+    INSERT INTO certificare(idan,idav)
+    VALUES(idan_angajati,idav_aeronave);
+
+    
+END;
+
+
+insert into pilotiaeronave
+values('Danescu Mihai',9000,'ATR 42-5',4700);
+select*
+from pilotiaeronave
+
+
+
+
+
+
+
+ 
+
+
+
+
+
