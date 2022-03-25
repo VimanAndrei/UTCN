@@ -26,7 +26,7 @@
     </ul>
      <ul>
       <li>
-        <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul3/Baze%20de%20date">
+        <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul3/Algoritmi%20Fundamentali">
           📗: Fundamental algorithms
         </a>
       </li>     
