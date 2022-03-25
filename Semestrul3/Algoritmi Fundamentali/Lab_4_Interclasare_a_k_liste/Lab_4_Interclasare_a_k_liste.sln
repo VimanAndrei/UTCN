@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab_4_Interclasare_a_k_liste", "Lab_4_Interclasare_a_k_liste\Lab_4_Interclasare_a_k_liste.vcxproj", "{BD512F69-C688-4B43-AA27-537E3DC24DBA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD512F69-C688-4B43-AA27-537E3DC24DBA}.Debug|x64.ActiveCfg = Debug|x64
+		{BD512F69-C688-4B43-AA27-537E3DC24DBA}.Debug|x64.Build.0 = Debug|x64
+		{BD512F69-C688-4B43-AA27-537E3DC24DBA}.Debug|x86.ActiveCfg = Debug|Win32
+		{BD512F69-C688-4B43-AA27-537E3DC24DBA}.Debug|x86.Build.0 = Debug|Win32
+		{BD512F69-C688-4B43-AA27-537E3DC24DBA}.Release|x64.ActiveCfg = Release|x64
+		{BD512F69-C688-4B43-AA27-537E3DC24DBA}.Release|x64.Build.0 = Release|x64
+		{BD512F69-C688-4B43-AA27-537E3DC24DBA}.Release|x86.ActiveCfg = Release|Win32
+		{BD512F69-C688-4B43-AA27-537E3DC24DBA}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5B78D419-23FB-498A-9FC2-9DB380515CAE}
+	EndGlobalSection
+EndGlobal
