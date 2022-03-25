@@ -1,0 +1,244 @@
+Time 1
+Waiting clients: (ID: 3 arrival: 5 processing: 3); (ID: 4 arrival: 10 processing: 3); (ID: 2 arrival: 12 processing: 2); (ID: 1 arrival: 28 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 2
+Waiting clients: (ID: 3 arrival: 5 processing: 3); (ID: 4 arrival: 10 processing: 3); (ID: 2 arrival: 12 processing: 2); (ID: 1 arrival: 28 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 3
+Waiting clients: (ID: 3 arrival: 5 processing: 3); (ID: 4 arrival: 10 processing: 3); (ID: 2 arrival: 12 processing: 2); (ID: 1 arrival: 28 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 4
+Waiting clients: (ID: 3 arrival: 5 processing: 3); (ID: 4 arrival: 10 processing: 3); (ID: 2 arrival: 12 processing: 2); (ID: 1 arrival: 28 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 5
+Waiting clients: (ID: 3 arrival: 5 processing: 3); (ID: 4 arrival: 10 processing: 3); (ID: 2 arrival: 12 processing: 2); (ID: 1 arrival: 28 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 6
+Waiting clients: (ID: 4 arrival: 10 processing: 3); (ID: 2 arrival: 12 processing: 2); (ID: 1 arrival: 28 processing: 2); 
+Queue 0: (ID: 3 arrival: 5 processing: 3); 
+Queue 1: 
+Time 7
+Waiting clients: (ID: 4 arrival: 10 processing: 3); (ID: 2 arrival: 12 processing: 2); (ID: 1 arrival: 28 processing: 2); 
+Queue 0: (ID: 3 arrival: 5 processing: 2); 
+Queue 1: 
+Time 8
+Waiting clients: (ID: 4 arrival: 10 processing: 3); (ID: 2 arrival: 12 processing: 2); (ID: 1 arrival: 28 processing: 2); 
+Queue 0: (ID: 3 arrival: 5 processing: 1); 
+Queue 1: 
+Time 9
+Waiting clients: (ID: 4 arrival: 10 processing: 3); (ID: 2 arrival: 12 processing: 2); (ID: 1 arrival: 28 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 10
+Waiting clients: (ID: 4 arrival: 10 processing: 3); (ID: 2 arrival: 12 processing: 2); (ID: 1 arrival: 28 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 11
+Waiting clients: (ID: 2 arrival: 12 processing: 2); (ID: 1 arrival: 28 processing: 2); 
+Queue 0: (ID: 4 arrival: 10 processing: 3); 
+Queue 1: 
+Time 12
+Waiting clients: (ID: 2 arrival: 12 processing: 2); (ID: 1 arrival: 28 processing: 2); 
+Queue 0: (ID: 4 arrival: 10 processing: 2); 
+Queue 1: 
+Time 13
+Waiting clients: (ID: 1 arrival: 28 processing: 2); 
+Queue 0: (ID: 4 arrival: 10 processing: 1); 
+Queue 1: (ID: 2 arrival: 12 processing: 2); 
+Time 14
+Waiting clients: (ID: 1 arrival: 28 processing: 2); 
+Queue 0: 
+Queue 1: (ID: 2 arrival: 12 processing: 1); 
+Time 15
+Waiting clients: (ID: 1 arrival: 28 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 16
+Waiting clients: (ID: 1 arrival: 28 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 17
+Waiting clients: (ID: 1 arrival: 28 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 18
+Waiting clients: (ID: 1 arrival: 28 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 19
+Waiting clients: (ID: 1 arrival: 28 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 20
+Waiting clients: (ID: 1 arrival: 28 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 21
+Waiting clients: (ID: 1 arrival: 28 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 22
+Waiting clients: (ID: 1 arrival: 28 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 23
+Waiting clients: (ID: 1 arrival: 28 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 24
+Waiting clients: (ID: 1 arrival: 28 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 25
+Waiting clients: (ID: 1 arrival: 28 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 26
+Waiting clients: (ID: 1 arrival: 28 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 27
+Waiting clients: (ID: 1 arrival: 28 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 28
+Waiting clients: (ID: 1 arrival: 28 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 29
+Waiting clients: 
+Queue 0: (ID: 1 arrival: 28 processing: 2); 
+Queue 1: 
+Time 30
+Waiting clients: 
+Queue 0: (ID: 1 arrival: 28 processing: 1); 
+Queue 1: 
+Time 31
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 32
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 33
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 34
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 35
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 36
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 37
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 38
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 39
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 40
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 41
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 42
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 43
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 44
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 45
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 46
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 47
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 48
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 49
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 50
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 51
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 52
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 53
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 54
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 55
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 56
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 57
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 58
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 59
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+Time 60
+Waiting clients: 
+Queue 0: 
+Queue 1: 
+
+Waiting time: 2.5
+Service time: 2.5
+Peak Hour: 13.0

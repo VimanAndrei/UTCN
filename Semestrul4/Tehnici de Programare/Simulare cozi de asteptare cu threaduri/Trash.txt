@@ -1,0 +1,124 @@
+Time 1
+Waiting clients: (ID: 1 arrival: 10 processing: 3); (ID: 2 arrival: 22 processing: 3); (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 2
+Waiting clients: (ID: 1 arrival: 10 processing: 3); (ID: 2 arrival: 22 processing: 3); (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 3
+Waiting clients: (ID: 1 arrival: 10 processing: 3); (ID: 2 arrival: 22 processing: 3); (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 4
+Waiting clients: (ID: 1 arrival: 10 processing: 3); (ID: 2 arrival: 22 processing: 3); (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 5
+Waiting clients: (ID: 1 arrival: 10 processing: 3); (ID: 2 arrival: 22 processing: 3); (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 6
+Waiting clients: (ID: 1 arrival: 10 processing: 3); (ID: 2 arrival: 22 processing: 3); (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 7
+Waiting clients: (ID: 1 arrival: 10 processing: 3); (ID: 2 arrival: 22 processing: 3); (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 8
+Waiting clients: (ID: 1 arrival: 10 processing: 3); (ID: 2 arrival: 22 processing: 3); (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 9
+Waiting clients: (ID: 1 arrival: 10 processing: 3); (ID: 2 arrival: 22 processing: 3); (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 10
+Waiting clients: (ID: 1 arrival: 10 processing: 3); (ID: 2 arrival: 22 processing: 3); (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 11
+Waiting clients: (ID: 2 arrival: 22 processing: 3); (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: (ID: 1 arrival: 10 processing: 3); 
+Queue 1: 
+Time 12
+Waiting clients: (ID: 2 arrival: 22 processing: 3); (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: (ID: 1 arrival: 10 processing: 2); 
+Queue 1: 
+Time 13
+Waiting clients: (ID: 2 arrival: 22 processing: 3); (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: (ID: 1 arrival: 10 processing: 1); 
+Queue 1: 
+Time 14
+Waiting clients: (ID: 2 arrival: 22 processing: 3); (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 15
+Waiting clients: (ID: 2 arrival: 22 processing: 3); (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 16
+Waiting clients: (ID: 2 arrival: 22 processing: 3); (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 17
+Waiting clients: (ID: 2 arrival: 22 processing: 3); (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 18
+Waiting clients: (ID: 2 arrival: 22 processing: 3); (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 19
+Waiting clients: (ID: 2 arrival: 22 processing: 3); (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 20
+Waiting clients: (ID: 2 arrival: 22 processing: 3); (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 21
+Waiting clients: (ID: 2 arrival: 22 processing: 3); (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 22
+Waiting clients: (ID: 2 arrival: 22 processing: 3); (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: 
+Queue 1: 
+Time 23
+Waiting clients: (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: (ID: 2 arrival: 22 processing: 3); 
+Queue 1: 
+Time 24
+Waiting clients: (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: (ID: 2 arrival: 22 processing: 2); 
+Queue 1: 
+Time 25
+Waiting clients: (ID: 3 arrival: 25 processing: 3); (ID: 4 arrival: 25 processing: 2); 
+Queue 0: (ID: 2 arrival: 22 processing: 1); 
+Queue 1: 
+Time 26
+Waiting clients: (ID: 3 arrival: 25 processing: 3); 
+Queue 0: (ID: 3 arrival: 25 processing: 3); 
+Queue 1: (ID: 4 arrival: 25 processing: 2); 
+Time 27
+Waiting clients: (ID: 3 arrival: 25 processing: 2); 
+Queue 0: (ID: 3 arrival: 25 processing: 2); 
+Queue 1: (ID: 4 arrival: 25 processing: 1); 
+Time 28
+Waiting clients: (ID: 3 arrival: 25 processing: 1); 
+Queue 0: (ID: 3 arrival: 25 processing: 1); 
+Queue 1: 
+Time 29
+Waiting clients: (ID: 3 arrival: 25 processing: 0); 
+Queue 0: 
+Queue 1: 
+Time 30
+Waiting clients: (ID: 3 arrival: 25 processing: 0); 
+Queue 0: 
+Queue 1: 
+
+Waiting time: 2.75
+Service time: 2.75
+Peak Hour: 27.0
