@@ -90,7 +90,6 @@
     </ul>
     
 
-![image](https://user-images.githubusercontent.com/96597640/160130642-367273cb-2161-4d94-a0c3-45d430262135.png)
 
 
 ## The site of the UTCN is [here](https://ac.utcluj.ro/acasa.html).
