@@ -6,12 +6,12 @@
     <ul>
       <li>
         <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul2/Limbaj%20de%20Asamblare">
-          :orange_book: Programare in limbaj de asamblare
+          :orange_book: Assembly Language Programming
         </a>
       </li>
       <li>
        <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul2/Proiectarea%20sistemelor%20numerice">
-          :orange_book: Proiectarea sistemelor numerice
+          :orange_book: Digital Systems Design
         </a>
       </li> 
     </ul>
@@ -29,12 +29,12 @@
      <ul>
       <li>
         <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul4/Sisteme%20de%20operare">
-         📘: Sisteme de operare
+         📘: Operating Systems
         </a>
       </li> 
        <li>
         <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul4/Tehnici%20de%20Programare">
-         📘: Tehnici de programare
+         📘: Fundamental Programming Techniques
         </a>
       </li> 
     </ul>
@@ -72,12 +72,12 @@
      <ul>
       <li>
         <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul6/Procesare%20de%20imagini">
-          📕: Procesare de imagini
+          📕: Image Processing
         </a>
       </li>
       <li>
        <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul6/ProiectareSoftware">
-          📕: Proiectarea software
+          📕: Software Design
         </a>
       </li> 
     </ul>
