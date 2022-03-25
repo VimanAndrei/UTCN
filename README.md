@@ -72,12 +72,12 @@
      <ul>
       <li>
         <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul6/Procesare%20de%20imagini">
-          📕: Programare in limbaj de asamblare
+          📕: Procesare de imagini
         </a>
       </li>
       <li>
        <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul6/ProiectareSoftware">
-          📕: Proiectarea sistemelor numerice
+          📕: Proiectarea software
         </a>
       </li> 
     </ul>
