@@ -1,4 +1,0 @@
-﻿  Source.cpp
-D:\Andrei\C\Algoritmi_Fundamentali\Lab_10_DFS_TARJAN_SORTARE_TOPOLOGICA\Lab_10_DFS_TARJAN_SORTARE_TOPOLOGICA\Profiler.h(9,1): warning C4005: '_CRT_SECURE_NO_WARNINGS': macro redefinition
-D:\Andrei\C\Algoritmi_Fundamentali\Lab_10_DFS_TARJAN_SORTARE_TOPOLOGICA\Lab_10_DFS_TARJAN_SORTARE_TOPOLOGICA\Source.cpp : message : see previous definition of '_CRT_SECURE_NO_WARNINGS'
-  Lab_10_DFS_TARJAN_SORTARE_TOPOLOGICA.vcxproj -> D:\Andrei\C\Algoritmi_Fundamentali\Lab_10_DFS_TARJAN_SORTARE_TOPOLOGICA\Debug\Lab_10_DFS_TARJAN_SORTARE_TOPOLOGICA.exe

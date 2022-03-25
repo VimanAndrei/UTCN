@@ -1,3 +1,0 @@
-﻿  Source.cpp
-D:\Andrei\C\Algoritmi_Fundamentali\Lab_5_AdresareDeschisa\Lab_5_AdresareDeschisa\Source.cpp(24,20): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 2 has type 'Cell'
-  Lab_5_AdresareDeschisa.vcxproj -> D:\Andrei\C\Algoritmi_Fundamentali\Lab_5_AdresareDeschisa\Debug\Lab_5_AdresareDeschisa.exe
