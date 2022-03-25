@@ -20,7 +20,14 @@
     <ul>
       <li>
         <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul3/Baze%20de%20date">
-          📗: Baze de date
+          📗: Databases
+        </a>
+      </li>     
+    </ul>
+     <ul>
+      <li>
+        <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul3/Baze%20de%20date">
+          📗: Fundamental algorithms
         </a>
       </li>     
     </ul>
@@ -43,27 +50,27 @@
     <ul>
       <li>
         <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul5/Inginerie%20Software">
-        📓: Inginerie software
+        📓: Software engineering
         </a>
       </li> 
        <li>
         <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul5/Inteligenta%20artificiala">
-        📓: Inteligenta artificiala
+        📓: Artificial intelligence
         </a>
       </li>
       <li>
         <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul5/Prelucrare%20Grafica">
-        📓: Prelucrare grafica
+        📓: Graphic processing
         </a>
       </li>
        <li>
         <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul5/Proiectare%20Cu%20Microprocesoare">
-        📓: Programare cu microprocesoare
+        📓: Design with microprocessors
         </a>
       </li>
       <li>
         <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul5/Structura%20Sistemelor%20De%20Calcul">
-        📓: Structura sistemelor de calcul
+        📓: Structure of computer systems
         </a>
       </li>
     </ul>
