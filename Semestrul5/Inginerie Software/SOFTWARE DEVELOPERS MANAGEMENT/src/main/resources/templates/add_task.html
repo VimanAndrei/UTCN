@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>New Task</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            background: url(http://localhost:63342/projIS/templates/bsn.jpeg);
+            background-size: cover;
+            background-position: center;
+            font-family: sans-serif;
+            text-align: center;
+        }
+
+        .addtaskbox{
+            background-color: rgba(245, 245, 245, 0.822);
+            border-radius: 10%;
+            width: 900px;
+            height: 500px;
+            top: 50%;
+            left: 50%;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            box-sizing: border-box;
+        }
+
+        .avatar{
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            top: -50%;
+
+
+        }
+
+        .addtaskbox p{
+            margin: 0;
+            padding: 0;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .addtaskbox input{
+            width: 50%;
+            margin-bottom: 20px;
+        }
+
+        .addtaskbox input[type="id"]
+        {
+            border: none;
+            border-bottom: 2px solid #000;
+            background: transparent;
+            outline: none;
+            height: 50px;
+            width: 200px;
+        }
+        .addtaskbox input[type="task"]
+        {
+            border: none;
+            border-bottom: 2px solid #000;
+            background: transparent;
+            outline: none;
+            height: 50px;
+            width: 850px;
+        }
+
+
+
+        .addtaskbox input[type="submit"],input[type="button"]
+        {
+            background-color: rgba(245, 245, 245, 0.822);
+            border: 2px solid #000;
+            border-radius: 20px;
+            color: #000;
+            height: 40px;
+            width: 90px;
+
+        }
+    </style>
+</head>
+<body>
+<dinv class="addtaskbox">
+
+    <img src="http://localhost:63342/projIS/templates/avt.jpeg" class="avatar">
+    <h1>Add New Tasks</h1>
+    <form method="post" action="addtask/finish">
+        <p>User ID</p>
+        <input type="id" name="userid" placeholder="Enter id:">
+        <p>Task to do</p>
+        <input type="task" name="task" placeholder="Enter Task:">
+        <br>
+        <br>
+        <input type="submit" value="Finish"/>
+        <input type="button" value="Back" onclick="cancelForm()"/>
+    </form>
+</dinv>
+<script type="text/javascript">
+    function cancelForm(){
+        window.location = "[[@{/users}]]";
+    }
+</script>
+</body>
+</html>

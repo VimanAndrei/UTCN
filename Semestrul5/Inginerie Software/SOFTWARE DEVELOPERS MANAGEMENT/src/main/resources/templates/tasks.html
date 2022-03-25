@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>View Tasks</title>
+  <link rel = "stylesheet" type="text/css" th:href = "@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
+
+  <style>
+    body{
+      margin: 0;
+      padding: 0;
+      background: url(http://localhost:63342/projIS/templates/bsn.jpeg);
+      background-size: cover;
+      background-position: center;
+      font-family: sans-serif;
+      text-align: center;
+    }
+
+    .adminbox{
+      background-color:rgb(245, 245, 245) ;
+      border-radius: 1%;
+      width: 1500px;
+      height: 700px;
+      top: 50%;
+      left: 50%;
+      position: absolute;
+      transform: translate(-50%,-50%);
+      box-sizing: border-box;
+    }
+
+    .adminbox input[type = "button"]{
+      background-color: rgba(245, 245, 245, 0.822);
+      border: 2px solid #000;
+      border-radius: 20px;
+      color: #000;
+      height: 40px;
+      width: 120px;
+    }
+    thead{
+      border: 2px solid black;
+    }
+    tr, td{
+      text-align: left;
+      border-bottom: 1px solid black;
+    }
+    tr:hover{
+      background-color: green;
+    }
+
+
+  </style>
+</head>
+<body>
+<dine class="adminbox">
+  <div class = "container-fluid text-center" >
+    <h1>Manage Tasks</h1>
+    <br>
+    <br>
+    <div>
+      <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+          <th>ID</th>
+          <th>ID User</th>
+          <th>Task Name</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each = "task: ${listTasks}">
+          <tr>
+            <td>[[${task.id}]]</td>
+            <td>[[${task.idUser}]]</td>
+            <td>[[${task.taskName}]]</td>
+            <td>
+              <a class="h5 mr-3" th:href = "@{'/users/viewtask/edit/' + ${task.id}}">Edit</a>
+              <a class="h5 mr-3" th:href = "@{'/users/viewtask/delete/' + ${task.id}}">Delete</a>
+            </td>
+          </tr>
+        </th:block>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <input type="button" value="Back" onclick="cancelForm()"/>
+</dine>
+<script type="text/javascript">
+  function cancelForm(){
+    window.location = "[[@{/users}]]";
+  }
+
+</script>
+</body>
+</html>

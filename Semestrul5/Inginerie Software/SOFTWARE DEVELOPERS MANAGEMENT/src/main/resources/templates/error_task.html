@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>ERROR</title>
+  <link rel = "stylesheet" type="text/css" th:href = "@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
+  <style>
+
+    body{
+      margin: 0;
+      padding: 0;
+      background: url(http://localhost:63342/projIS/templates/bsn.jpeg);
+      background-size: cover;
+      background-position: center;
+      font-family: sans-serif;
+      text-align: center;
+    }
+
+    .errorbox{
+      background-color: rgb(245, 245, 245);
+      border-radius: 10%;
+      width: 500px;
+      height: 200px;
+      top: 50%;
+      left: 50%;
+      position: absolute;
+      transform: translate(-50%,-50%);
+      box-sizing: border-box;
+    }
+    .close {
+      height: 100px;
+      width: 100px;
+      background-color: red;
+      border-radius: 5px;
+      position: relative;
+      left: -40%;
+
+    }
+
+    .close:after {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      content: "\274c"; /* use the hex value here... */
+      font-size: 50px;
+      color: #FFF;
+      line-height: 100px;
+      text-align: center;
+
+    }
+    .errorbox input[type="button"]
+    {
+      background-color: rgba(245, 245, 245, 0.822);
+      border: 2px solid #000;
+      border-radius: 20px;
+      color: #000;
+      height: 40px;
+      width: 90px;
+
+    }
+  </style>
+
+</head>
+<body>
+<dine class="errorbox ">
+  <div class="text-center"><h2>ERROR Task not found!!</h2></div>
+  <div class="close"/>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <form>
+    <div class="text-center">
+      <button type="button" class="btn btn-secondary m-2" onclick="cancelForm()">Back</button>
+    </div>
+  </form>
+</dine>
+
+<script type="text/javascript">
+  function cancelForm(){
+    window.location = "[[@{/users/viewtask}]]";
+  }
+</script>
+
+</body>
+</html>

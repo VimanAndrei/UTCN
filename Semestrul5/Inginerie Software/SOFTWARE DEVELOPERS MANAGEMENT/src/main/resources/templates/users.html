@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Manage Users</title>
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" type="text/css"/>
+
+  <style>
+    body{
+      margin: 0;
+      padding: 0;
+      background: url(http://localhost:63342/projIS/templates/bsn.jpeg);
+      background-size: cover;
+      background-position: center;
+      font-family: sans-serif;
+      text-align: center;
+    }
+
+    .adminbox{
+      background-color:rgb(245, 245, 245) ;
+      border-radius: 1%;
+      width: 1500px;
+      height: 700px;
+      top: 50%;
+      left: 50%;
+      position: absolute;
+      transform: translate(-50%,-50%);
+      box-sizing: border-box;
+    }
+
+    .button{
+      background-color: rgba(245, 245, 245, 0.822);
+      border: 2px solid #000;
+      border-radius: 20px;
+      color: #000;
+      height: 40px;
+      width: 120px;
+    }
+    thead{
+      border: 2px solid black;
+    }
+    tr, td{
+      text-align: left;
+      border-bottom: 1px solid black;
+    }
+    tr:hover{
+      background-color: green;
+    }
+
+
+  </style>
+</head>
+<body>
+<dine class="adminbox">
+  <div class = "container-fluid text-center" >
+    <h1>Manage Users</h1>
+    <a href="users/newUser">
+      <button class="button">Add New User</button>
+    </a>
+    <a href="/users/addtask">
+      <button class="button">Add New Task</button>
+    </a>
+    <a href="/users/viewtask">
+      <button class="button">View Tasks</button>
+    </a>
+    <a href="/">
+      <button class="button">LogOut</button>
+    </a>
+    <a href="/chat/Admin">
+      <button class="button">Chat</button>
+    </a>
+    <br>
+    <br>
+    <div>
+      <table class="table text-center">
+        <thead class="thead-dark">
+        <tr>
+          <th>ID</th>
+          <th>E-mail</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Administrator</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody class="">
+        <th:block th:each = "user: ${listUsers}"  >
+          <tr>
+            <td>[[${user.id}]]</td>
+            <td>[[${user.email}]]</td>
+            <td>[[${user.firstName}]]</td>
+            <td>[[${user.lastName}]]</td>
+            <td>[[${user.enable}]]</td>
+            <td>
+              <a class="h5 mr-3" th:href = "@{'/users/edit/' + ${user.id}}">Edit</a>
+              <a class="h5 mr-3" th:href = "@{'/users/delete/' + ${user.id}}">Delete</a>
+            </td>
+          </tr>
+        </th:block>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</dine>
+</body>
+</html>

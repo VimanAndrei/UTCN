@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>LoginWindow</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            background: url(http://localhost:63342/projIS/templates/bsn.jpeg);
+            background-size: cover;
+            background-position: center;
+            font-family: sans-serif;
+            text-align: center;
+        }
+
+        .loginbox{
+            background-color: rgba(245, 245, 245, 0.822);
+            border-radius: 10%;
+            width: 500px;
+            height: 500px;
+            top: 50%;
+            left: 50%;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            box-sizing: border-box;
+        }
+
+        .avatar{
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            top: -50%;
+
+
+        }
+
+        .loginbox p{
+            margin: 0;
+            padding: 0;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .loginbox input{
+            width: 50%;
+            margin-bottom: 20px;
+        }
+
+        .loginbox input[type="text"],input[type="password"]
+        {
+            border: none;
+            border-bottom: 2px solid #000;
+            background: transparent;
+            outline: none;
+            height: 50px;
+        }
+
+        .loginbox input[type="submit"]
+        {
+            background-color: rgba(245, 245, 245, 0.822);
+            border: 2px solid #000;
+            border-radius: 20px;
+            color: #000;
+            height: 40px;
+
+        }
+    </style>
+</head>
+<body>
+    <dinv class="loginbox">
+
+        <img src="http://localhost:63342/projIS/templates/avt.jpeg" class="avatar">
+         <h1>Login Here</h1>
+         <form method="post" action="login">
+             <p>Username</p>
+             <input type="text" name="Username" placeholder="Enter Username">
+             <p>Password</p>
+             <input type="password" name="Password" placeholder="Enter Password">
+             <br>
+             <br>
+             <input type="submit" value="Login"/>
+         </form>
+        </dinv>
+</body>
+</html>
