@@ -1,6 +1,6 @@
 
    
-# UTCN
+# UTCN - CTI
 <ul>
   <li>:open_file_folder: Semester 2
     <ul>
