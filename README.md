@@ -20,14 +20,14 @@
     <ul>
       <li>
         <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul3/Baze%20de%20date">
-          📗: Databases
+          📗 Databases
         </a>
       </li>     
     </ul>
      <ul>
       <li>
         <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul3/Algoritmi%20Fundamentali">
-          📗: Fundamental algorithms
+          📗 Fundamental algorithms
         </a>
       </li>     
     </ul>
@@ -36,12 +36,12 @@
      <ul>
       <li>
         <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul4/Sisteme%20de%20operare">
-         📘: Operating Systems
+         📘 Operating Systems
         </a>
       </li> 
        <li>
         <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul4/Tehnici%20de%20Programare">
-         📘: Fundamental Programming Techniques
+         📘 Fundamental Programming Techniques
         </a>
       </li> 
     </ul>
@@ -50,27 +50,27 @@
     <ul>
       <li>
         <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul5/Inginerie%20Software">
-        📓: Software engineering
+        📓 Software engineering
         </a>
       </li> 
        <li>
         <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul5/Inteligenta%20artificiala">
-        📓: Artificial intelligence
+        📓 Artificial intelligence
         </a>
       </li>
       <li>
         <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul5/Prelucrare%20Grafica">
-        📓: Graphic processing
+        📓 Graphic processing
         </a>
       </li>
        <li>
         <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul5/Proiectare%20Cu%20Microprocesoare">
-        📓: Design with microprocessors
+        📓 Design with microprocessors
         </a>
       </li>
       <li>
         <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul5/Structura%20Sistemelor%20De%20Calcul">
-        📓: Structure of computer systems
+        📓 Structure of computer systems
         </a>
       </li>
     </ul>
@@ -79,12 +79,12 @@
      <ul>
       <li>
         <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul6/Procesare%20de%20imagini">
-          📕: Image Processing
+          📕 Image Processing
         </a>
       </li>
       <li>
        <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul6/ProiectareSoftware">
-          📕: Software Design
+          📕 Software Design
         </a>
       </li> 
     </ul>
