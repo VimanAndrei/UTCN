@@ -982,9 +982,9 @@ void lab3pb5() {
 		    medie = medie / ((float)(2 * WH + 1));
 
 			if (max && FDP[i] > medie + TH) {
-				vf.push_back(i);
-			
-		}}			
+				vf.push_back(i);			
+			}
+		}			
 
 		vf.push_back(255);
 		
@@ -1664,6 +1664,1752 @@ void lab6pb3() {
 	waitKey(0);
 }
 
+#define FG 0
+#define BG 255
+
+Mat dilatation(Mat src) {
+	Mat dst = src.clone();
+	int height = src.rows;
+	int width = src.cols;
+	int di[8] = { 0,-1,-1,-1,0,1,1,1 };
+	int dj[8] = { 1,1,0,-1,-1,-1,0,1 };
+	for (int i = 1; i < height - 1; i++)
+	{
+		for (int j = 0; j < width - 1; j++)
+		{
+			uchar pixel = src.at<uchar>(i, j);
+			if (pixel == FG) {
+
+				for (int k = 0; k < 8; k++)
+				{
+					if(isInside(i + dj[k], j + di[k],dst))
+					dst.at<uchar>(i+dj[k], j+di[k]) = FG;
+
+				}
+
+				dst.at<uchar>(i, j) = FG;
+			}
+		}
+	}
+	return dst;
+}
+
+Mat erodation(Mat src) {
+	Mat dst(src.rows, src.cols, CV_8UC1, Scalar(255));
+	int height = src.rows;
+	int width = src.cols;
+	int di[9] = { 0,0,-1,-1,-1,0,1,1,1 };
+	int dj[9] = {0, 1,1,0,-1,-1,-1,0,1 };
+	for (int i = 1; i < height - 1; i++)
+	{
+		for (int j = 0; j < width - 1; j++)
+		{
+			uchar pixel = src.at<uchar>(i, j);
+			if (pixel == FG) {
+				bool gasit = true;
+				for (int k = 0; k < 9; k++)
+				{
+					if (isInside(i + dj[k], j + di[k], src)) {
+						if (src.at<uchar>(i + dj[k], j + di[k]) != FG) {							
+							gasit = false;
+						}
+					}					
+
+				}
+				if (gasit) {
+					dst.at<uchar>(i, j) = 0;
+				}
+			}
+		}
+	}
+	return dst;
+
+}
+
+Mat opening(Mat src) {
+	Mat dst1 = erodation(src);
+	Mat dst2 = dilatation(dst1);
+	return dst2;
+}
+
+Mat closing(Mat src) {
+	Mat dst1 = dilatation(src);
+	Mat dst2 = erodation(dst1);
+	return dst2;
+}
+
+void lab7pb1(int n) {
+	char fname[MAX_PATH];
+	while (openFileDlg(fname)) {
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+		
+		Mat dstDilatation = dilatation(src);
+		Mat dstErodation = erodation(src);
+		for (int i = 0; i < n-1; i++)
+		{
+			dstDilatation = dilatation(dstDilatation);
+			dstErodation = erodation(dstErodation);
+		}
+		Mat dstOpening = opening(src);
+		Mat dstClosing = closing(src);
+
+		imshow("Sursa", src);
+		imshow("Dilatata", dstDilatation);
+		imshow("Erodata", dstErodation);
+		imshow("Deschisa", dstOpening);
+		imshow("Inchisa", dstClosing);
+		waitKey(0);
+	}
+}
+void lab7pb3() 
+{
+	char fname[MAX_PATH];
+	while (openFileDlg(fname)) {
+		Mat src = imread(fname, IMREAD_GRAYSCALE);		
+		Mat dstErodation = erodation(src);
+		Mat dst = src.clone();
+
+		int height = src.rows;
+		int width = src.cols;
+		for (int i = 1; i < height - 1; i++)
+		{
+			for (int j = 0; j < width - 1; j++)
+			{
+				if (src.at<uchar>(i, j) == dstErodation.at<uchar>(i, j))
+				{
+
+					dst.at<uchar>(i, j) = BG;
+
+				}
+				else {
+					dst.at<uchar>(i, j) = FG;
+				}
+			}
+		}
+		
+
+		imshow("Sursa", src);
+		imshow("Contur", dst);
+		waitKey(0);
+	}
+}
+
+
+
+
+
+void standardDeviation() {
+	char fname[MAX_PATH];
+
+	while (openFileDlg(fname))
+	{
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+		int height = src.rows;
+		int width = src.cols;
+		int M = height * width;
+
+		int h[256] = { 0 };
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				uchar pixelCurent = src.at<uchar>(i, j);
+				h[pixelCurent]++;
+			}
+		}
+
+		float g = 0;
+
+		for (int i = 0; i < 256; i++)
+		{
+			g = g + (i * h[i]);
+		}
+		g = (float)g / M;
+
+
+		float deviation = 0.0;
+		for (int i = 0; i < 256; i++)
+		{
+			deviation = deviation + ((float)(i - g) * (i - g) * h[i]);
+
+		}
+		deviation = (float)deviation / M;
+		deviation = sqrt(deviation);
+
+		int hC[256] = { 0 };
+		for (int i = 0; i < 256; i++)
+		{
+			for (int j = 0; j < i; j++)
+			{
+				hC[i] += h[j];
+			}
+		}
+
+
+		cout << "Media: " << g << endl;
+		cout << "Deviatia: " << deviation << endl;
+
+		showHistogram("Histograma",h,255,255);
+		showHistogram("Histograma cumulativa", hC, 255, 255);
+
+	}
+
+}
+
+void autoTrasholding() {
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+		int height = src.rows;
+		int width = src.cols;
+		int I_min = 1000;
+		int I_max = -100;
+
+		int h[256] = { 0 };
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				uchar current = src.at<uchar>(i, j);
+				h[current]++;
+			}
+		}
+
+		for (int i = 0; i < 256; i++)
+		{
+			if (h[i] > 0 && i < I_min) I_min = i;
+			if (h[i] > 0 && i > I_max) I_max = i;
+
+		}
+
+		float T = (I_min + I_max) / 2.0;
+		float privT;
+		do
+		{
+			float mG1 = 0, mG2 = 0, N1 = 0, N2 = 0;
+			for (int i = I_min; i <= T; i++)
+			{
+				mG1 += i * h[i];
+				N1 += h[i];
+			}
+			for (int i = T; i <= I_max; i++)
+			{
+				mG2 += i * h[i];
+				N2 += h[i];
+			}
+			mG1 = mG1 / N1;
+			mG2 = mG2 / N2;
+			privT = T;
+			T = (mG1 + mG2) / 2.0;
+
+		} while (abs(T - privT) > 0);
+
+
+		Mat dst(src.rows, src.cols, CV_8UC1, Scalar(255));
+
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+
+				if (src.at<uchar>(i, j) >= T)
+					dst.at<uchar>(i, j) = 255;
+				else
+					if (src.at<uchar>(i, j) < T)
+						dst.at<uchar>(i, j) = 0;
+			}
+		}
+
+		imshow("Initial image", src);
+		imshow("B&W image", dst);
+		waitKey(0);
+
+	}
+}
+
+void brightnessContrast(int gOutMin, int gOutMax, int offset) {
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+		int height = src.rows;
+		int width = src.cols;
+		Mat dst(src.rows, src.cols, CV_8UC1, Scalar(255));
+
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				int pixel = src.at<uchar>(i, j) + offset;
+				if (pixel > 255)  dst.at<uchar>(i, j) = 255;
+				else {
+					if (sum < 0) dst.at<uchar>(i, j) = 0;
+					else dst.at<uchar>(i, j) = pixel;
+				}
+			}
+		}
+
+		int h[256] = { 0 };
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				uchar current = src.at<uchar>(i, j);
+				h[current]++;
+			}
+		}
+
+		int gInMax = -100;
+		int gInMin = 1000;
+
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				if (src.at<uchar>(i, j) < gInMin) {
+					gInMin = src.at<uchar>(i, j);
+				}
+				if (src.at<uchar>(i, j) > gInMax) {
+					gInMax = src.at<uchar>(i, j);
+				}
+
+			}
+		}
+
+		Mat dst1(src.rows, src.cols, CV_8UC1, Scalar(255));
+
+		float rap = (float)(gOutMax - gOutMin) / (gInMax - gInMin);
+
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				int gIn = src.at<uchar>(i, j);
+				int gOut = gOutMin + (gIn - gInMin) * rap;
+				if (gOut > 255)
+				{
+					dst1.at<uchar>(i, j) = 255;
+
+				}
+				else {
+
+					if (sum < 0)
+					{
+						dst1.at<uchar>(i, j) = 0;
+
+					}
+					else
+					{
+						dst1.at<uchar>(i, j) = gOut;
+					}
+				}
+			}
+		}
+
+		int h1[256] = { 0 };
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				uchar current = dst.at<uchar>(i, j);
+				h1[current]++;
+			}
+		}
+
+		int h2[256] = { 0 };
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				uchar current = dst1.at<uchar>(i, j);
+				h2[current]++;
+			}
+		}
+		imshow("Initial image", src);
+		imshow("After Brightness", dst);
+		imshow("After Contrast", dst1);		
+		showHistogram("MyHist", h, 256, 256);
+		showHistogram("MyHist Brightness", h1, 256, 256);
+		showHistogram("MyHist Contrast", h2, 256, 256);
+		waitKey(0);
+
+	}
+}
+
+void negative() {
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+		int height = src.rows;
+		int width = src.cols;
+		Mat dst(src.rows, src.cols, CV_8UC1, Scalar(255));
+
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				dst.at<uchar>(i, j) = 255 - src.at<uchar>(i, j);
+			}
+		}
+
+		int h[256] = { 0 };
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				uchar current = src.at<uchar>(i, j);
+				h[current]++;
+			}
+		}
+
+		int h1[256] = { 0 };
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				uchar current = dst.at<uchar>(i, j);
+				h1[current]++;
+			}
+		}
+
+		imshow("Sursa", src);
+		imshow("Negativul", dst);
+		showHistogram("MyHist", h, 256, 256);
+		showHistogram("MyHist neg", h1, 256, 256);
+	}
+}
+
+void gammaCorrection(float g0, float g1) {
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+		int height = src.rows;
+		int width = src.cols;
+		Mat dst(src.rows, src.cols, CV_8UC1, Scalar(255));
+		Mat dst1(src.rows, src.cols, CV_8UC1, Scalar(255));
+
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				float val0 = 255 * (pow(((float)src.at<uchar>(i, j) / 255), g0));
+				
+				if (val0 >= 255)
+					dst.at<uchar>(i, j) = 255;
+				else if (val0 <= 0)
+					dst.at<uchar>(i, j) = 0;
+				else dst.at<uchar>(i, j) = val0;
+				
+			}
+		}
+
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {				
+				float val1 = 255 * (pow(((float)src.at<uchar>(i, j) / 255), g1));
+				
+				if (val1 >= 255)
+					dst1.at<uchar>(i, j) = 255;
+				else if (val1 <= 0)
+					dst1.at<uchar>(i, j) = 0;
+				else dst1.at<uchar>(i, j) = val1;
+			}
+		}
+		int h[256] = { 0 };
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				uchar current = src.at<uchar>(i, j);
+				h[current]++;
+			}
+		}
+
+		int h1[256] = { 0 };
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				uchar current = dst.at<uchar>(i, j);
+				h1[current]++;
+			}
+		}
+		int h2[256] = { 0 };
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				uchar current = dst1.at<uchar>(i, j);
+				h2[current]++;
+			}
+		}
+		imshow("Initial", src);
+		imshow("Compression", dst);
+		imshow("Decompression", dst1);
+		showHistogram("MyHist", h, 256, 256);
+		showHistogram("MyHist Compression", h1, 256, 256);
+		showHistogram("MyHist Decompression", h2, 256, 256);
+		waitKey(0);
+	}
+}
+
+void histogramEqualization()
+{
+
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+		Mat dst(src.rows, src.cols, CV_8UC1, Scalar(255));
+
+		int height = src.rows;
+		int width = src.cols;
+		int M = height * width;
+
+		int h[256] = { 0 };
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				uchar current = src.at<uchar>(i, j);
+				h[current]++;
+			}
+		}
+
+		float p[256] = { 0.0 };
+		for (int i = 0; i < 256; i++) {
+				p[i] = (float)h[i] / M;
+		}
+
+		float pc[256] = { 0 };
+		for (int i = 0; i < 256; i++) {
+			for (int j = 0; j <= i; j++){
+				pc[i] += p[j];
+			}
+		}
+
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				dst.at<uchar>(i, j) = 255 * pc[src.at<uchar>(i, j)];
+			}
+		}
+
+		int h1[256] = { 0 };
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				uchar current = dst.at<uchar>(i, j);
+				h1[current]++;
+			}
+		}
+
+		imshow("Initial", src);
+		imshow("Equalized image", dst);
+		showHistogram("MyHist", h, 256, 256);
+		showHistogram("MyHist egalizata", h1, 256, 256);
+		waitKey(0);
+	}
+}
+
+Mat convolution(Mat src, int Kernal[][3], int scalar)
+{
+	Mat dst = src.clone();
+
+	for (int i = 1; i < src.rows - 1; i++)
+	{
+		for (int j = 1; j < src.cols - 1; j++)
+		{
+			int sum = 0;
+			for (int k = 0; k < 3; k++)
+			{
+				for (int l = 0; l < 3; l++)
+				{
+					int pixel = src.at<uchar>(i + k - 1, j + l - 1);
+					int filter =  Kernal[k][l] * pixel;
+					sum += filter;
+				}
+			}
+
+			dst.at<uchar>(i, j) = sum / scalar;
+		}
+	}
+
+	return dst;
+}
+
+int calculScalar(int Kernal[][3])
+{
+	int sum1 = 0, sum2 = 0;
+
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (Kernal[i][j] < 0) {
+				sum1 += abs(Kernal[i][j]);
+			}
+			else {
+				sum2 += Kernal[i][j];
+			}
+
+		}
+	}
+
+	int scalar = max(sum1, sum2);
+	return scalar;
+}
+
+void filtruAritmetic()
+{
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+		int Kernel[3][3] = {{1, 1, 1},
+							{1, 1, 1},
+							{1 ,1 ,1}};
+		int scalar = calculScalar(Kernel);
+
+		Mat dst = convolution(src, Kernel, scalar);
+
+		imshow("Source", src);
+		imshow("Filter", dst);
+		waitKey(0);
+		
+
+	}
+}
+
+
+void filtruGaussian()
+{
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+		int Kernel[3][3] = {{1, 2, 1},
+							{2, 4, 2},
+							{1 ,2 ,1}};
+		int scalar = calculScalar(Kernel);
+
+
+		Mat dst = convolution(src, Kernel, scalar);
+
+		imshow("Source", src);
+		imshow("Filter", dst);
+		waitKey(0);
+
+
+	}
+}
+
+void filtruLaplace()
+{
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+		int Kernel[3][3] = { {-1, -1, -1},
+							 {-1,  8, -1},
+							 {-1, -1 , -1} };
+		int scalar = calculScalar(Kernel);
+
+		Mat dst = convolution(src, Kernel, scalar);
+
+		imshow("Source", src);
+		imshow("Filter", dst);
+		waitKey(0);
+
+
+	}
+}
+
+void filtruHighPass()
+{
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+		int Kernel[3][3] = { {-1, -1, -1},
+							 {-1,  9, -1},
+							 {-1, -1 , -1} };
+		int scalar = calculScalar(Kernel);
+
+		Mat dst = convolution(src, Kernel, scalar);
+
+		imshow("Source", src);
+		imshow("Filter", dst);
+		waitKey(0);
+
+
+	}
+}
+
+void centeringTransform(Mat img)
+{
+	for (int i = 0; i < img.rows; i++)
+	{
+		for (int j = 0; j < img.cols; j++)
+		{
+			img.at<float>(i, j) = ((i + j) & 1) ? -img.at<float>(i, j) : img.at<float>(i, j);
+		}
+	}
+}
+
+Mat genericFrequencyDomainFilter(Mat src)
+{
+	Mat srcFloat;
+	//matricea trebuie sa aiba elemente de tipul float
+	src.convertTo(srcFloat, CV_32FC1);
+
+	//transformarea de centru
+	centeringTransform(srcFloat);
+
+	//aplicarea transformatei Fourier, se obt o img cu val complexe
+	Mat fourier;
+	dft(srcFloat,fourier,DFT_COMPLEX_OUTPUT);
+	//divizarea in 2 canale partea reala si partea imaginara
+	Mat chanels[] = { Mat::zeros(src.size(),CV_32F), Mat::zeros(src.size(),CV_32F) };
+	split(fourier, chanels);
+
+	//calcularea magnitudinii și fazei în imaginile mag, respectiv phi, cu elemente de tip float
+	Mat mag, phi;
+	magnitude(chanels[0], chanels[1], mag);
+	phase(chanels[0], chanels[1], phi);
+	imshow("Magnitudinea", mag);
+	imshow("Faza", phi);
+
+	//aplicarea transformatei Fourier inversă și punerea rezultatului în dstf
+	Mat dst, dstf;
+	merge(chanels, 2, fourier);
+	dft(fourier, dstf, DFT_INVERSE | DFT_REAL_OUTPUT | DFT_SCALE);
+
+	//transformarea de centrare inversă
+	centeringTransform(dstf);
+
+	//normalizarea rezultatului în imaginea destinație
+	normalize(dstf, dst, 0, 255, NORM_MINMAX, CV_8UC1);
+	//Notă: normalizarea distorsionează rezultatul oferind o afișare îmbunătățită în intervalul
+	//[0,255]. Dacă se dorește afișarea rezultatului cu exactitate (vezi Activitatea 3) se va
+	//folosi în loc de normalizare conversia:
+	//dstf.convertTo(dst, CV_8UC1);
+	return dst;
+
+}
+
+void filtruInFrecventa()
+{
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+		Mat dst = genericFrequencyDomainFilter(src);
+
+		imshow("Source", src);
+		imshow("Filter", dst);
+		waitKey(0);
+
+
+	}
+}
+
+Mat logaritmMagnitude(Mat src)
+{
+	Mat srcFloat;
+	//matricea trebuie sa aiba elemente de tipul float
+	src.convertTo(srcFloat, CV_32FC1);
+
+	//transformarea de centru
+	centeringTransform(srcFloat);
+
+	//aplicarea transformatei Fourier, se obt o img cu val complexe
+	Mat fourier;
+	dft(srcFloat, fourier, DFT_COMPLEX_OUTPUT);
+	//divizarea in 2 canale partea reala si partea imaginara
+	Mat chanels[] = { Mat::zeros(src.size(),CV_32F), Mat::zeros(src.size(),CV_32F) };
+	split(fourier, chanels);
+
+	//calcularea magnitudinii și fazei în imaginile mag, respectiv phi, cu elemente de tip float
+	Mat mag, phi;
+	magnitude(chanels[0], chanels[1], mag);
+	phase(chanels[0], chanels[1], phi);
+
+	for (int i = 0; i < mag.rows; i++)
+	{
+		for (int j = 0; j < mag.cols; j++)
+		{
+			float pixel = mag.at<float>(i, j);
+			pixel = pixel + 1.0;
+			mag.at<float>(i, j) = log(pixel);
+		}
+	}
+
+	normalize(mag, mag, 0, 1, NORM_MINMAX);
+	
+	imshow("Logaritmul magnitudinii", mag);
+	
+	//aplicarea transformatei Fourier inversă și punerea rezultatului în dstf
+	Mat dst, dstf;
+	merge(chanels, 2, fourier);
+	dft(fourier, dstf, DFT_INVERSE | DFT_REAL_OUTPUT | DFT_SCALE);
+
+	//transformarea de centrare inversă
+	centeringTransform(dstf);
+
+	//normalizarea rezultatului în imaginea destinație
+	normalize(dstf, dst, 0, 255, NORM_MINMAX, CV_8UC1);
+	//Notă: normalizarea distorsionează rezultatul oferind o afișare îmbunătățită în intervalul
+	//[0,255]. Dacă se dorește afișarea rezultatului cu exactitate (vezi Activitatea 3) se va
+	//folosi în loc de normalizare conversia:
+	//dstf.convertTo(dst, CV_8UC1);
+	return dst;
+
+}
+
+void logaritmulMagnitudinii()
+{
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+		Mat dst = logaritmMagnitude(src);
+
+		imshow("Source", src);
+		imshow("Filter", dst);
+		waitKey(0);
+
+
+	}
+}
+
+void filtruIdealTreceJos(int R)
+{
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+
+
+		Mat srcFloat;
+		//matricea trebuie sa aiba elemente de tipul float
+		src.convertTo(srcFloat, CV_32FC1);
+
+		//transformarea de centru
+		centeringTransform(srcFloat);
+
+		//aplicarea transformatei Fourier, se obt o img cu val complexe
+		Mat fourier;
+		dft(srcFloat, fourier, DFT_COMPLEX_OUTPUT);
+		//divizarea in 2 canale partea reala si partea imaginara
+		Mat chanels[] = { Mat::zeros(src.size(),CV_32F), Mat::zeros(src.size(),CV_32F) };
+		split(fourier, chanels);
+		
+		int H = src.rows;
+		int W = src.cols;
+		for (int i = 0; i < fourier.rows; i++)
+		{
+			for (int j = 0; j < fourier.cols; j++)
+			{
+				float coord;
+				coord = pow((H / 2 - i), 2) + pow((W / 2 - j), 2);
+				if (pow(R, 2) < coord)
+				{
+					chanels[0].at<float>(i, j) = 0;
+					chanels[1].at<float>(i, j) = 0;
+				}
+			}
+		}
+
+		Mat mag,spec;
+		magnitude(chanels[0], chanels[1], mag);
+		mag += Scalar::all(1);
+		log(mag, mag);
+		normalize(mag, spec, 0, 255, NORM_MINMAX);
+		imshow("Magnitudine", spec);
+
+
+		
+
+		//aplicarea transformatei Fourier inversă și punerea rezultatului în dstf
+		Mat dst, dstf;
+		merge(chanels, 2, fourier);
+		dft(fourier, dstf, DFT_INVERSE | DFT_REAL_OUTPUT | DFT_SCALE);
+
+		//transformarea de centrare inversă
+		centeringTransform(dstf);
+
+		//normalizarea rezultatului în imaginea destinație
+		normalize(dstf, dst, 0, 255, NORM_MINMAX, CV_8UC1);
+		//Notă: normalizarea distorsionează rezultatul oferind o afișare îmbunătățită în intervalul
+		//[0,255]. Dacă se dorește afișarea rezultatului cu exactitate (vezi Activitatea 3) se va
+		//folosi în loc de normalizare conversia:
+		//dstf.convertTo(dst, CV_8UC1);
+
+
+		imshow("Source", src);
+		imshow("Filtrata", dst);
+		waitKey(0);
+
+
+	}
+}
+
+void filtruIdealTreceSus(int R)
+{
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+
+
+		Mat srcFloat;
+		//matricea trebuie sa aiba elemente de tipul float
+		src.convertTo(srcFloat, CV_32FC1);
+
+		//transformarea de centru
+		centeringTransform(srcFloat);
+
+		//aplicarea transformatei Fourier, se obt o img cu val complexe
+		Mat fourier;
+		dft(srcFloat, fourier, DFT_COMPLEX_OUTPUT);
+		//divizarea in 2 canale partea reala si partea imaginara
+		Mat chanels[] = { Mat::zeros(src.size(),CV_32F), Mat::zeros(src.size(),CV_32F) };
+		split(fourier, chanels);
+
+		
+
+		int H = fourier.rows;
+		int W = fourier.cols;
+		for (int i = 0; i < fourier.rows; i++)
+		{
+			for (int j = 0; j < fourier.cols; j++)
+			{
+				float coord;
+				coord = pow((H / 2 - i), 2) + pow((W / 2 - j), 2);
+				if (pow(R, 2) >= coord)
+				{
+					chanels[0].at<float>(i, j) = 0;
+					chanels[1].at<float>(i, j) = 0;
+				}
+			}
+		}
+
+		Mat mag,spec;
+		magnitude(chanels[0], chanels[1], mag);
+		mag += Scalar::all(1);
+		log(mag, mag);
+		normalize(mag, spec, 0, 255, NORM_MINMAX);
+		imshow("Magnitudine", spec);
+
+		//aplicarea transformatei Fourier inversă și punerea rezultatului în dstf
+		Mat dst, dstf;
+		merge(chanels, 2, fourier);
+		dft(fourier, dstf, DFT_INVERSE | DFT_REAL_OUTPUT | DFT_SCALE);
+
+		//transformarea de centrare inversă
+		centeringTransform(dstf);
+
+		//normalizarea rezultatului în imaginea destinație
+		normalize(dstf, dst, 0, 255, NORM_MINMAX, CV_8UC1);
+		//Notă: normalizarea distorsionează rezultatul oferind o afișare îmbunătățită în intervalul
+		//[0,255]. Dacă se dorește afișarea rezultatului cu exactitate (vezi Activitatea 3) se va
+		//folosi în loc de normalizare conversia:
+		//dstf.convertTo(dst, CV_8UC1);
+
+
+		imshow("Source", src);
+		imshow("Filtrata", dst);
+		waitKey(0);
+
+
+	}
+}
+
+void filtruIdealGaussianTreceJos(int A)
+{
+
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+
+
+		Mat srcFloat;
+		//matricea trebuie sa aiba elemente de tipul float
+		src.convertTo(srcFloat, CV_32FC1);
+
+		//transformarea de centru
+		centeringTransform(srcFloat);
+
+		//aplicarea transformatei Fourier, se obt o img cu val complexe
+		Mat fourier;
+		dft(srcFloat, fourier, DFT_COMPLEX_OUTPUT);
+		//divizarea in 2 canale partea reala si partea imaginara
+		Mat chanels[] = { Mat::zeros(src.size(),CV_32F), Mat::zeros(src.size(),CV_32F) };
+		split(fourier, chanels);
+
+		int H = fourier.rows;
+		int W = fourier.cols;
+		for (int i = 0; i < fourier.rows; i++)
+		{
+			for (int j = 0; j < fourier.cols; j++)
+			{
+				float val;
+				val = pow((H / 2 - i), 2) + pow((W / 2 - j), 2);
+				val /= pow(A, 2);
+				val = -val;
+				float exponent = exp(val);
+
+				chanels[0].at<float>(i, j) *= exp(val);
+				chanels[1].at<float>(i, j) *= exp(val);
+
+			}
+		}
+
+		Mat mag,spec;
+		magnitude(chanels[0], chanels[1], mag);
+		mag += Scalar::all(1);
+		log(mag, mag);
+		normalize(mag, spec, 0, 1, NORM_MINMAX);
+
+		imshow("Magnitudine", spec);
+		
+
+		//aplicarea transformatei Fourier inversă și punerea rezultatului în dstf
+		Mat dst, dstf;
+		merge(chanels, 2, fourier);
+		dft(fourier, dstf, DFT_INVERSE | DFT_REAL_OUTPUT | DFT_SCALE);
+
+		//transformarea de centrare inversă
+		centeringTransform(dstf);
+
+		//normalizarea rezultatului în imaginea destinație
+		normalize(dstf, dst, 0, 255, NORM_MINMAX, CV_8UC1);
+		//Notă: normalizarea distorsionează rezultatul oferind o afișare îmbunătățită în intervalul
+		//[0,255]. Dacă se dorește afișarea rezultatului cu exactitate (vezi Activitatea 3) se va
+		//folosi în loc de normalizare conversia:
+		//dstf.convertTo(dst, CV_8UC1);
+
+
+		imshow("Source", src);
+		imshow("Filtrata", dst);
+		waitKey(0);
+	}
+}
+
+void filtruIdealGaussianTreceSus(int A)
+{
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+
+
+		Mat srcFloat;
+		//matricea trebuie sa aiba elemente de tipul float
+		src.convertTo(srcFloat, CV_32FC1);
+
+		//transformarea de centru
+		centeringTransform(srcFloat);
+
+		//aplicarea transformatei Fourier, se obt o img cu val complexe
+		Mat fourier;
+		dft(srcFloat, fourier, DFT_COMPLEX_OUTPUT);
+		//divizarea in 2 canale partea reala si partea imaginara
+		Mat chanels[] = { Mat::zeros(src.size(),CV_32F), Mat::zeros(src.size(),CV_32F) };
+		split(fourier, chanels);
+
+		int H = fourier.rows;
+		int W = fourier.cols;
+		for (int i = 0; i < fourier.rows; i++)
+		{
+			for (int j = 0; j < fourier.cols; j++)
+			{
+				float val;
+				val = pow((H / 2 - i), 2) + pow((W / 2 - j), 2);
+				val /= pow(A, 2);
+				val = -val;
+				float exponent = exp(val);
+
+				chanels[0].at<float>(i, j) *= (1-exp(val));
+				chanels[1].at<float>(i, j) *= (1-exp(val));
+
+			}
+		}
+
+
+		Mat mag,spec;
+		magnitude(chanels[0], chanels[1], mag);
+		mag += Scalar::all(1);
+		log(mag, mag);
+		normalize(mag, spec, 0, 1, NORM_MINMAX);
+		imshow("Magnitudine", spec);
+
+		//aplicarea transformatei Fourier inversă și punerea rezultatului în dstf
+		Mat dst, dstf;
+		merge(chanels, 2, fourier);
+		dft(fourier, dstf, DFT_INVERSE | DFT_REAL_OUTPUT | DFT_SCALE);
+
+		//transformarea de centrare inversă
+		centeringTransform(dstf);
+
+		//normalizarea rezultatului în imaginea destinație
+		normalize(dstf, dst, 0, 255, NORM_MINMAX, CV_8UC1);
+		//Notă: normalizarea distorsionează rezultatul oferind o afișare îmbunătățită în intervalul
+		//[0,255]. Dacă se dorește afișarea rezultatului cu exactitate (vezi Activitatea 3) se va
+		//folosi în loc de normalizare conversia:
+		//dstf.convertTo(dst, CV_8UC1);
+
+
+		imshow("Source", src);
+		imshow("Filtrata", dst);
+		waitKey(0);
+	}
+}
+
+Mat medianFiltering(Mat src, int dim, int a = 1)
+{
+	double t = (double)getTickCount();
+	Mat dst = src.clone();
+
+	for (int i = dim/2; i < src.rows - dim/2; i++)
+	{
+		for (int j = dim/2; j < src.cols -dim/2; j++)
+		{
+			vector<int> vect;
+			for (int k = 0; k < dim; k++)
+			{
+				for (int l = 0; l < dim; l++)
+				{
+					vect.push_back(src.at<uchar>(i + k - dim / 2, j + l - dim / 2));
+				}
+			}
+			sort(vect.begin(), vect.end());
+			if(a == 1)
+			dst.at<uchar>(i, j)=vect.at(pow(dim,2)/2);
+			if (a == 2)
+				dst.at<uchar>(i, j) = vect.front();
+			if (a == 3)
+				dst.at<uchar>(i, j) = vect.back();
+		}
+	}
+
+	t = ((double)getTickCount() - t) / getTickFrequency();
+	printf("\nTime = %.3f [ms] \n", t * 1000);
+	return dst;
+
+}
+
+void filtrulMedian()
+{
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+		cout << "Introduceti o valoare 3,5 sau 7:";
+	    int val;
+		cin >> val;
+		Mat dst = medianFiltering(src, val);
+		Mat dst1 = medianFiltering(src, val, 2);
+		Mat dst2 = medianFiltering(src, val, 3);		 
+
+		imshow("Source", src);
+		imshow("Filtrata", dst);
+		imshow("Filtrata1", dst1);
+		imshow("Filtrata2", dst2);
+
+		waitKey(0);
+	}
+}
+
+float** gaussianKernal(int w, float sigma, int mid)
+{
+	float** mat = (float**)malloc(w * sizeof(float*));
+	for (int index = 0; index < w; ++index)
+	{
+		mat[index] = (float*)malloc(w * sizeof(float));
+	}
+	for (int i = 0; i < w; i++)
+	{
+		for (int j = 0; j < w; j++)
+		{
+			float numi = 2 * PI * pow(sigma, 2);
+			float fraction = 1.0 / numi;
+			float e = (pow(i - mid, 2) + pow(j - mid, 2)) / (2 * pow(sigma, 2));
+			e = -e;
+			float val = fraction * exp(e);
+			mat[i][j] = val;
+		}
+	}
+	return mat;
+}
+
+void filtrulGaussianZgomotBidimensional()
+{
+
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+		Mat dst = src.clone();
+		cout << "Introduceti o valoare 3,5 sau 7:";
+		int w;
+		cin >> w;
+		float sigma = (float)w / 6;
+		int mid = w / 2;
+
+		double t = (double)getTickCount();		
+		float** filter = gaussianKernal(w, sigma, mid);
+
+		for (int i = w / 2; i < src.rows - w / 2; i++)
+		{
+			for (int j = w / 2; j < src.cols - w / 2; j++)
+			{
+				float sum = 0;
+				for (int k = 0; k < w; k++)
+				{
+					for (int l = 0; l < w; l++)
+					{
+						int pixel = src.at<uchar>(i + k - w / 2, j + l - w / 2);
+						float val = filter[k][l];
+						sum += pixel * val;
+					}
+				}
+				dst.at<uchar>(i, j) = (uchar)sum;
+				
+			}
+		}
+
+		t = ((double)getTickCount() - t) / getTickFrequency();
+		printf("Time = %.3f [ms]\n", t * 1000);
+
+		imshow("Source", src);
+		imshow("Filtrata", dst);
+		waitKey(0);
+
+	}
+}
+
+void filtrulGaussianZgomotVectorial()
+{
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+		Mat dst = src.clone();
+		cout << "Introduceti o valoare 3,5 sau 7:";
+		int w;
+		cin >> w;
+		float sigma = (float)w / 6;
+		int mid = w / 2;
+
+		double t = (double)getTickCount();
+		float* gx;
+		gx = (float*)calloc(w, sizeof(float));
+
+		for (int i = 0; i < w; i++)
+		{
+
+			float numi = sqrt(2.0 * PI) * sigma;
+			float fraction = 1.0 / numi;
+			float e1 = (pow(i - mid, 2)) / (2 * pow(sigma, 2));
+			e1 = -e1;
+			float val1 = fraction * exp(e1);
+			gx[i] = val1;
+		}
+
+
+		for (int i = w / 2; i < src.rows - w / 2; i++)
+		{
+			for (int j = w / 2; j < src.cols - w / 2; j++)
+			{
+				float sum = 0;
+
+				for (int k = 0; k < w; k++)
+				{
+					int pixel1 = src.at<uchar>(i, j + k - w / 2);
+					float val1 = gx[k];
+					sum += pixel1 * val1;
+
+				}
+
+				dst.at<uchar>(i, j) = (uchar)sum;
+
+			}
+		}
+		Mat dst1 = dst.clone();
+
+		for (int i = w / 2; i < src.rows - w / 2; i++)
+		{
+			for (int j = w / 2; j < src.cols - w / 2; j++)
+			{
+				float sum = 0;
+
+				for (int k = 0; k < w; k++)
+				{
+					int pixel1 = dst.at<uchar>(i + k - w / 2, j);
+					float val1 = gx[k];
+					sum += pixel1 * val1;
+
+				}
+
+				dst1.at<uchar>(i, j) = (uchar)sum;
+
+			}
+		}
+		
+		t = ((double)getTickCount() - t) / getTickFrequency();
+		printf("Time = %.3f [ms]\n", t * 1000);
+
+		imshow("Source", src);
+		imshow("Filtrata", dst1);
+		waitKey(0);
+	}
+
+}
+
+
+
+
+
+
+
+int grXSobel[3][3] = { {-1,0,1}, {-2,0,2}, {-1,0,1} };
+int grYSobel[3][3] = { {1,2,1}, {0,0,0}, {-1,-2,-1} };
+
+int grXPrewitt[3][3] = { {-1,0,1}, {-1,0,1}, {-1,0,1} };
+int grYPrewitt[3][3] = { {1,1,1}, {0,0,0}, {-1,-1,-1} };
+
+Mat convolutionMatrix(Mat src, int Kernal[][3])
+{
+	Mat dst = src.clone();
+	dst.convertTo(dst, CV_32FC1);
+
+	for (int i = 1; i < src.rows - 1; i++)
+	{
+		for (int j = 1; j < src.cols - 1; j++)
+		{
+			int sum = 0;
+			for (int k = 0; k < 3; k++)
+			{
+				for (int l = 0; l < 3; l++)
+				{
+					int pixel = src.at<uchar>(i + k - 1, j + l - 1);
+					int filter = Kernal[k][l] * pixel;
+					sum += filter;
+				}
+			}
+
+			dst.at<float>(i, j) = sum;
+		}
+	}
+
+	return dst;
+}
+
+Mat magnitude(Mat src, Mat magx, Mat magy)
+{
+	Mat dst = src.clone();
+	dst.convertTo(dst, CV_32FC1);
+	float scalar = 4.0 * sqrt(2.0);
+
+	for (int i = 0; i < src.rows; i++)
+	{
+		for (int j = 0; j < src.cols; j++)
+		{
+			float pixel1 = magx.at<float>(i, j);
+			float pixel2 = magy.at<float>(i, j);
+			float rez = sqrt((pixel1 * pixel1) + (pixel2 * pixel2));
+			dst.at<float>(i, j) = rez / scalar;
+		}
+	}
+
+	return dst;
+
+}
+
+Mat orientation(Mat src, Mat magx, Mat magy)
+{
+	Mat dst = src.clone();
+	dst.convertTo(dst, CV_32FC1);
+
+	for (int i = 0; i < src.rows; i++)
+	{
+		for (int j = 0; j < src.cols; j++)
+		{
+			float pixel1 = magx.at<float>(i, j);
+			float pixel2 = magy.at<float>(i, j);
+			float rez = atan2(pixel2, pixel1);
+			rez = rez * (180 / PI);
+			if (rez < 0) rez = -rez;
+			dst.at<float>(i, j) = rez;
+
+		}
+	}
+
+	return dst;
+}
+
+
+void derivationMatrix() {
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+		Mat derivationXSobel = convolutionMatrix(src, grXSobel);
+		Mat derivationYSobel = convolutionMatrix(src, grYSobel);
+		Mat derivationXPrewitt = convolutionMatrix(src, grXPrewitt);
+		Mat derivationYPrewitt = convolutionMatrix(src, grYPrewitt);
+
+		imshow("Source", src);
+		imshow("Derivata pe X Sobel", derivationXSobel);
+		imshow("Derivata pe Y Sobel", derivationYSobel);
+		imshow("Derivata pe X Prewitt", derivationXPrewitt);
+		imshow("Derivata pe Y Prewitt", derivationYPrewitt);
+		waitKey(0);
+
+
+	}
+
+}
+
+void gradientModuleAndDirection() {
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+		Mat derivationXSobel = convolutionMatrix(src, grXSobel);
+		Mat derivationYSobel = convolutionMatrix(src, grYSobel);
+		Mat derivationXPrewitt = convolutionMatrix(src, grXPrewitt);
+		Mat derivationYPrewitt = convolutionMatrix(src, grYPrewitt);
+
+		Mat magSobel = magnitude(src, derivationXSobel, derivationYSobel);
+		Mat oriSobel = orientation(src, derivationXSobel, derivationYSobel);
+
+		Mat magPrewitt = magnitude(src, derivationXPrewitt, derivationYPrewitt);
+		Mat oriPrewitt = orientation(src, derivationXPrewitt, derivationYPrewitt);
+
+		magSobel.convertTo(magSobel, CV_8UC1);
+		magPrewitt.convertTo(magPrewitt, CV_8UC1);
+
+		oriSobel.convertTo(oriSobel, CV_8UC1);
+		oriPrewitt.convertTo(oriPrewitt, CV_8UC1);
+
+		imshow("Source", src);
+		imshow("Modul Sobel", magSobel);
+		imshow("Modul Prewitt", magPrewitt);
+		imshow("Directia  Sobel", oriSobel);
+		imshow("Directia Prewitt", oriPrewitt);
+		waitKey(0);
+
+
+	}
+}
+
+void binarizareModul() {
+	int prag;
+	cout << "Introduceti un prag de binarizare: ";
+	cin >> prag;
+
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src = imread(fname, IMREAD_GRAYSCALE);
+		Mat derivationXSobel = convolutionMatrix(src, grXSobel);
+		Mat derivationYSobel = convolutionMatrix(src, grYSobel);
+		Mat magSobel = magnitude(src, derivationXSobel, derivationYSobel);
+		magSobel.convertTo(magSobel, CV_8UC1);
+
+		Mat binarizare = magSobel.clone();
+		for (int i = 0; i < magSobel.rows; i++)
+		{
+			for (int j = 0; j < magSobel.cols; j++)
+			{
+				uchar pixel = magSobel.at<uchar>(i, j);
+				if (pixel < prag) {
+					binarizare.at<uchar>(i, j) = 0;
+				}
+				else {
+					binarizare.at<uchar>(i, j) = 255;
+				}
+			}
+
+		}
+
+
+		imshow("Source", src);
+		imshow("Modul Binarizat", binarizare);
+		waitKey(0);
+
+
+	}
+}
+
+Mat gaussianFilter(Mat src, int w)
+{
+	float sigma = (float)w / 6;
+	int mid = w / 2;
+
+	float* gx;
+	gx = (float*)calloc(w, sizeof(float));
+
+	for (int i = 0; i < w; i++)
+	{
+
+		float numi = sqrt(2.0 * PI) * sigma;
+		float fraction = 1.0 / numi;
+		float e1 = (pow(i - mid, 2)) / (2 * pow(sigma, 2));
+		e1 = -e1;
+		float val1 = fraction * exp(e1);
+		gx[i] = val1;
+	}
+
+	Mat dst = src.clone();
+
+	for (int i = w / 2; i < src.rows - w / 2; i++)
+	{
+		for (int j = w / 2; j < src.cols - w / 2; j++)
+		{
+			float sum = 0;
+
+			for (int k = 0; k < w; k++)
+			{
+				int pixel1 = src.at<uchar>(i, j + k - w / 2);
+				float val1 = gx[k];
+				sum += pixel1 * val1;
+
+			}
+
+			dst.at<uchar>(i, j) = (uchar)sum;
+
+		}
+	}
+	Mat dst1 = dst.clone();
+
+	for (int i = w / 2; i < src.rows - w / 2; i++)
+	{
+		for (int j = w / 2; j < src.cols - w / 2; j++)
+		{
+			float sum = 0;
+
+			for (int k = 0; k < w; k++)
+			{
+				int pixel1 = dst.at<uchar>(i + k - w / 2, j);
+				float val1 = gx[k];
+				sum += pixel1 * val1;
+
+			}
+
+			dst1.at<uchar>(i, j) = (uchar)sum;
+
+		}
+	}
+	return dst1;
+}
+
+Mat transformOrientation(Mat src) {
+	Mat dst = src.clone();
+	for (int i = 0; i < src.rows; i++)
+	{
+		for (int j = 0; j < src.cols; j++)
+		{
+			float pixel = src.at<float>(i, j);
+			if (pixel >= 0.0 && pixel < 22.5 || pixel<=180 && pixel >= 157.5) {
+				dst.at<float>(i, j) = 2;
+			}
+			if (pixel >= 22.5 && pixel < 67.5) {
+				dst.at<float>(i, j) = 1;
+			}
+			if (pixel >=67.5 && pixel < 112.5) {
+				dst.at<float>(i, j) = 0;
+			}
+			if (pixel >= 112.5 && pixel < 157.5) {
+				dst.at<float>(i, j) = 3;
+			}
+			
+		}
+
+	}
+	return dst;
+}
+Mat suprimareNonMaxime(Mat modulul, Mat orientarea) {
+	Mat dst = modulul.clone();
+	for (int i = 1; i < dst.rows - 1; i++)
+	{
+		for (int j = 1; j < dst.cols - 1; j++)
+		{
+			int pixel = orientarea.at<float>(i, j);
+			switch (pixel)
+			{
+			case 0:
+				if (modulul.at<float>(i, j) < modulul.at<float>(i - 1, j) || modulul.at<float>(i, j) < modulul.at<float>(i + 1, j)) {
+					dst.at<float>(i, j) = 0;
+				}
+				break;
+			case 1:
+				if (modulul.at<float>(i, j) < modulul.at<float>(i - 1, j + 1) || modulul.at<float>(i, j) < modulul.at<float>(i + 1, j - 1)) {
+					dst.at<float>(i, j) = 0;
+				}
+				break;
+			case 2:
+				if (modulul.at<float>(i, j) < modulul.at<float>(i ,j - 1) || modulul.at<float>(i, j) < modulul.at<float>(i, j - 1)) {
+					dst.at<float>(i,j) = 0;
+				}
+				break;
+			case 3:
+				if (modulul.at<float>(i, j) < modulul.at<float>(i - 1, j - 1) || modulul.at<float>(i, j) < modulul.at<float>(i + 1, j + 1)) {
+					dst.at<float>(i, j) = 0;
+				}
+				break;
+			}
+
+		}
+	}
+
+	return dst;
+}
+
+void processCannyLab1() {
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src1 = imread(fname, IMREAD_GRAYSCALE);
+		Mat src = gaussianFilter(src1, 7);
+		Mat derivationXSobel = convolutionMatrix(src, grXSobel);
+		Mat derivationYSobel = convolutionMatrix(src, grYSobel);
+		Mat magSobel = magnitude(src, derivationXSobel, derivationYSobel);
+		Mat oriSobel = orientation(src, derivationXSobel, derivationYSobel);
+		Mat direction = transformOrientation(oriSobel);
+
+		Mat dst = suprimareNonMaxime(magSobel, direction);
+		magSobel.convertTo(magSobel, CV_8UC1);
+		dst.convertTo(dst, CV_8UC1);
+
+		imshow("Modulul", magSobel);
+		imshow("Modul Suprimat", dst);
+		waitKey(0);
+
+
+	}
+}
+void processCannyLab2() {
+	char fname[MAX_PATH];
+	while (openFileDlg(fname))
+	{
+		Mat src1 = imread(fname, IMREAD_GRAYSCALE);
+		Mat src = gaussianFilter(src1, 7);
+		Mat derivationXSobel = convolutionMatrix(src, grXSobel);
+		Mat derivationYSobel = convolutionMatrix(src, grYSobel);
+		Mat magSobel = magnitude(src, derivationXSobel, derivationYSobel);
+		Mat oriSobel = orientation(src, derivationXSobel, derivationYSobel);
+		Mat direction = transformOrientation(oriSobel);
+
+		Mat dst = suprimareNonMaxime(magSobel, direction);
+		magSobel.convertTo(magSobel, CV_8UC1);
+		dst.convertTo(dst, CV_8UC1);
+
+		imshow("Modulul", magSobel);
+		imshow("Suprimare", dst);
+		
+		int histo[256] = { 0 };
+
+		for (int i = 0; i < dst.rows; i++)
+		{
+			for (int j = 0; j < dst.cols; j++)
+			{
+				histo[dst.at<uchar>(i, j)]++;
+			}
+		}
+
+		float p = 0.1;		
+		int numarPixeli = (dst.cols - 2) * (dst.rows - 2);
+		int numarPuncteMuchie = p * (numarPixeli - histo[0]);
+		int numarPuncteNonMuchie = (1 - p) * (numarPixeli - histo[0]);
+		
+		int suma = 0;
+		int index = 0;
+		while (suma < numarPuncteNonMuchie) {
+			index++;
+			suma += histo[index];
+
+
+		}
+		
+		
+		int tresholdHigh = index-1;
+		int tresholdLow = 0.4 * tresholdHigh;
+		Mat aux = dst.clone();
+
+		for (int i = 1; i < dst.rows - 1; i++)
+		{
+			for (int j = 1; j < dst.cols - 1; j++)
+			{
+				if (dst.at<uchar>(i, j) > tresholdHigh) aux.at<uchar>(i, j) = 255;
+				else if (dst.at<uchar>(i, j) > tresholdLow) aux.at<uchar>(i, j) = 128;
+				else aux.at<uchar>(i, j) = 0;
+			}
+		}
+		imshow("Tresholding", aux);
+
+
+		int di[8] = { -1,  0, 1, 0, -1, -1, 1, 1 };
+		int dj[8] = { 0, -1, 0, 1, 1, -1, -1, 1 };
+
+		Mat	visited(dst.rows, dst.cols, CV_8UC1);
+		visited = Mat::zeros(dst.rows, dst.cols, CV_8UC1);
+
+		for (int i = 2; i < dst.rows - 2; i++)
+		{
+			for (int j = 2; j < dst.cols - 2; j++)
+			{
+				int curentPixel = aux.at<uchar>(i, j);
+				int curentLabel = visited.at<uchar>(i, j);
+				if (curentPixel == 255 && curentLabel == 0) {
+					queue<Point> Queue;
+					visited.at<uchar>(i, j) = 1;
+					Point p(i, j);
+					Queue.push(p);
+					while (!Queue.empty())
+					{
+						Point outQ = Queue.front();
+						Queue.pop();
+						for (int neighbours = 0; neighbours < 8; neighbours++)
+						{
+							if (aux.at<uchar>(outQ.x + di[neighbours], outQ.y + dj[neighbours]) == 128 &&
+								visited.at<uchar>(outQ.x + di[neighbours], outQ.y + dj[neighbours]) == 0) {
+
+								visited.at<uchar>(outQ.x + di[neighbours], outQ.y + dj[neighbours]) = 1;
+								aux.at<uchar>(outQ.x + di[neighbours], outQ.y + dj[neighbours]) = 255;
+								Point curent(outQ.x + di[neighbours], outQ.y + dj[neighbours]);
+								Queue.push(curent);
+							}
+						}
+
+					}
+				}
+
+			}
+		}
+
+		for (int i = 1; i < dst.rows - 1; i++)
+		{
+			for (int j = 1; j < dst.cols - 1; j++)
+			{
+				uchar pixelCurent = aux.at<uchar>(i, j);
+				if (pixelCurent == 128) {
+					aux.at<uchar>(i, j) = 0;
+				}
+			}
+		}
+
+		imshow("Canny", aux);
+
+
+		waitKey(0);
+
+
+	}
+
+
+}
+
+
+
 int main()
 {
 	int op;
@@ -1713,9 +3459,49 @@ int main()
 		printf(" 28 - Lab5pb1\n");
 		printf(" 29 - Lab5pb3\n");
 
-		printf(" \nLaboratorl 5\n");
+		printf(" \nLaboratorl 6\n");
 		printf(" 30 - Lab6pb1sipb2\n");
 		printf(" 31 - Lab6pb3\n");
+
+		printf(" \nLaboratorl 7\n");
+		printf(" 32 - Lab7pb1si2\n");
+		printf(" 33 - Lab7pb3\n");
+
+		printf(" \nLaboratorl 8\n");
+		printf(" 34 - Standard Deviation and histogram \n");
+		printf(" 35 - Trasholding \n");
+		printf(" 36 - Contrast \n");
+		printf(" 37 - Negativ \n");
+		printf(" 38 - Gamma \n");
+		printf(" 39 - Egalizare \n");
+
+		printf(" \nLaboratorl 9\n");
+		printf(" 40 - Filtrul Aritmetic\n");
+		printf(" 41 - Filtrul Gaussian\n");
+		printf(" 42 - Filtrul Laplace\n");
+		printf(" 43 - Filtrul HighPass\n");
+		printf(" 44 - Filtrul in Frecventa\n");
+		printf(" 45 - Logaritmul magnitudinii\n");
+		printf(" 46 - Filtrul Ideal Trece Jos\n");
+		printf(" 47 - Filtrul Ideal Trece Sus\n");
+		printf(" 48 - Filtrul Ideal Gaussian Trece Jos\n");
+		printf(" 49 - Filtrul Ideal Gaussian Trece Sus\n");
+
+		printf(" \nLaboratorl 10\n");
+		printf(" 50 - Filtrul Median\n");
+		printf(" 51 - Filtrul Gausian Zgomote Bidimensional\n");
+		printf(" 52 - Filtrul Gausian Zgomote Vectorial\n");
+
+		printf(" \nLaboratorl 11\n");
+		printf(" 53 - Derivata pe x si y\n");
+		printf(" 54 - Modulul si directia gradientului\n");
+		printf(" 55 - Binarizarea modulului\n");
+		printf(" 56 - Detectare muchii Canny Lab 1\n");
+		printf(" 57 - Detectare muchii Canny Lab 2\n");
+
+
+
+
 
 		
 		printf("\nOption: ");
@@ -1819,6 +3605,88 @@ int main()
 			case 31:
 				lab6pb3();
 				break;
+			case 32:
+				int nn;
+				cout << "Introduceti un numar de ori n= ";
+				cin >> nn;
+				lab7pb1(nn);
+				break;
+			case 33:
+				lab7pb3();
+				break;
+			case 34:
+				standardDeviation();
+				break;
+			case 35:
+				autoTrasholding();
+				break;
+			case 36:
+				brightnessContrast(20, 230, 50);
+				break;
+			case 37:
+				negative();
+				break;
+			case 38:
+				gammaCorrection(0.7, 3);
+				break;
+			case 39:
+				histogramEqualization();
+				break;
+			case 40:
+				filtruAritmetic();
+				break;
+			case 41:
+				filtruGaussian();
+				break;
+			case 42:
+				filtruLaplace();
+				break;
+			case 43:
+				filtruHighPass();
+				break;
+			case 44:
+				filtruInFrecventa();
+				break;
+			case 45:
+				logaritmulMagnitudinii();
+				break;
+			case 46:
+				filtruIdealTreceJos(20);
+				break;
+			case 47:
+				filtruIdealTreceSus(20);
+				break;
+			case 48:
+				filtruIdealGaussianTreceJos(20);
+				break;
+			case 49:
+				filtruIdealGaussianTreceSus(20);
+				break;
+			case 50:
+				filtrulMedian();
+				break;
+			case 51:
+				filtrulGaussianZgomotBidimensional();
+				break;
+			case 52:
+				filtrulGaussianZgomotVectorial();
+				break;
+			case 53:
+				derivationMatrix();
+				break;
+			case 54:
+				gradientModuleAndDirection();
+				break;
+			case 55:
+				binarizareModul();
+				break;
+			case 56:
+				processCannyLab1();
+				break;
+			case 57:
+				processCannyLab2();
+				break;
+
 		}
 	}
 	while (op!=0);
