@@ -88,12 +88,12 @@
         </a>
       </li> 
       <li>
-       <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul6/ProiectareSoftware">
+       <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul6/Limbaje%20formale%20si%20translatoare">
           📕 Formal Languages and Translator
         </a>
       </li> 
        <li>
-       <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul6/ProiectareSoftware">
+       <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul6/Sisteme%20Inteligente">
           📕 Intelligent Systems
         </a>
       </li> 
