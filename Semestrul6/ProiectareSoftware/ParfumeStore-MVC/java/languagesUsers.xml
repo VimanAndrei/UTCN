@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<limbi>
+
+
+    <romana>
+        <nume_utilizator>NUME UTILIZATOR</nume_utilizator>
+        <parola>PAROLA</parola>
+        <rolul>ROLUL</rolul>
+        <salvare>SALVARE</salvare>
+        <stergere>STERGERE</stergere>
+        <actualizare>ACTUALIZARE</actualizare>
+        <afisare_utilizatori>AFISARE UTILIZATORI</afisare_utilizatori>
+        <filtrere>FILTRARE</filtrere>
+        <administrator>ADMINISTRATOR</administrator>
+        <angajat>ANGAJAT</angajat>
+    </romana>
+
+
+    <engleza>
+        <nume_utilizator>USER NAME</nume_utilizator>
+        <parola>PASSWORD</parola>
+        <rolul>ROLE</rolul>
+        <salvare>SAVE</salvare>
+        <stergere>DELETE</stergere>
+        <actualizare>UPDATE</actualizare>
+        <afisare_utilizatori>LIST USERS</afisare_utilizatori>
+        <filtrere>FILTRATION</filtrere>
+        <administrator>ADMINISTRATOR</administrator>
+        <angajat>EMPLOYEE</angajat>
+    </engleza>
+
+
+    <germana>
+        <nume_utilizator>NUTZERNAME</nume_utilizator>
+        <parola>PASSWORT</parola>
+        <rolul>ROLLE</rolul>
+        <salvare>BERGUNG</salvare>
+        <stergere>KLAR</stergere>
+        <actualizare>AKTUALISIEREN</actualizare>
+        <afisare_utilizatori>BENUTZER ANZEIGEN</afisare_utilizatori>
+        <filtrere>FILTERUNG</filtrere>
+        <administrator>ADMINISTRATOR</administrator>
+        <angajat>ANGESTELLTER</angajat>
+    </germana>
+
+
+    <franceza>
+        <nume_utilizator>NOM D'UTILISATEUR</nume_utilizator>
+        <parola>LE MOT DE PASSE</parola>
+        <rolul>LE RÔLE</rolul>
+        <salvare>SAUVETAGE</salvare>
+        <stergere>DÉGAGER</stergere>
+        <actualizare>METTRE À JOUR</actualizare>
+        <afisare_utilizatori>AFFICHER LES UTILISATEURS</afisare_utilizatori>
+        <filtrere>FILTRATION</filtrere>
+        <administrator>ADMINISTRATEUR</administrator>
+        <angajat>EMPLOYÉ</angajat>
+    </franceza>
+
+</limbi>

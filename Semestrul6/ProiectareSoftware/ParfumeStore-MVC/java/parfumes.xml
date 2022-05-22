@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<parfumes>
+    
+    <parfume>
+        <storName>ana</storName>
+        <parfumeName>ana</parfumeName>
+        <manufacturerName>ana</manufacturerName>
+        <numberOfCopies>15</numberOfCopies>
+        <barCode>192165</barCode>
+        <price>100.0</price>
+        <parfumeAmount>100</parfumeAmount>
+        <numberOfSoldCopies>10</numberOfSoldCopies>
+    </parfume>
+    <parfume>
+        <storName>Marionnaud</storName>
+        <parfumeName>Tresor</parfumeName>
+        <manufacturerName>Lancome</manufacturerName>
+        <numberOfCopies>13</numberOfCopies>
+        <barCode>192212</barCode>
+        <price>340.0</price>
+        <parfumeAmount>100</parfumeAmount>
+        <numberOfSoldCopies>7</numberOfSoldCopies>
+    </parfume>
+    <parfume>
+        <storName>Sephora</storName>
+        <parfumeName>Invictus</parfumeName>
+        <manufacturerName>Paco Rabanne</manufacturerName>
+        <numberOfCopies>10</numberOfCopies>
+        <barCode>192123</barCode>
+        <price>550.0</price>
+        <parfumeAmount>300</parfumeAmount>
+        <numberOfSoldCopies>4</numberOfSoldCopies>
+    </parfume>
+    <parfume>
+        <storName>Sephora</storName>
+        <parfumeName>Tresor</parfumeName>
+        <manufacturerName>Lancome</manufacturerName>
+        <numberOfCopies>13</numberOfCopies>
+        <barCode>192212</barCode>
+        <price>350.0</price>
+        <parfumeAmount>100</parfumeAmount>
+        <numberOfSoldCopies>5</numberOfSoldCopies>
+    </parfume>
+</parfumes>
