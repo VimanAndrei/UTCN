@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<limbi>
+
+    <romana>
+        <nume_producator>NUME PRODUCATOR</nume_producator>
+        <produse_ramase>PRODUSE RAMASE</produse_ramase>
+        <cod_de_bare>COD DE BARE</cod_de_bare>
+        <pret>PRETUL</pret>
+        <dimensiunea>DIMENSIUNEA IN ML</dimensiunea>
+        <produse_vandute>PRODUSE VANDUTE</produse_vandute>
+        <nume_parfum>NUME PARFUM</nume_parfum>
+        <nume_magazin>NUME MAGAZIN</nume_magazin>
+
+        <actualizare>ACTUALIZARE</actualizare>
+        <salvare>SALVARE</salvare>
+        <stergere>STERGERE</stergere>
+        <afisare_parfmuri>AFISARE PARFUMURI</afisare_parfmuri>
+        <afisare_parfmuri_magazin>AFISARE PARFUMURI DIN MAGAZIN</afisare_parfmuri_magazin>
+        <salvare_formate>SALVARE IN MAI MULTE FORMATE</salvare_formate>
+        <filtrare_producator>FILTRARE DUPA PRODUCATOR</filtrare_producator>
+        <filtrare_disponibilitate>FILTRARE DUPA DISPONIBILITATE</filtrare_disponibilitate>
+        <cautare_parfum>CAUTARE PARFUM</cautare_parfum>
+        <filtrare_pret>FILTRARE DUPA PRET</filtrare_pret>
+        <statistici>STATISTICI</statistici>
+    </romana>
+
+    <engleza>
+        <nume_producator>MANUFACTURER'S NAME</nume_producator>
+        <produse_ramase>REMAINING PRODUCTS</produse_ramase>
+        <cod_de_bare>BARCODE</cod_de_bare>
+        <pret>PRICE</pret>
+        <dimensiunea>DIMENSION IN ML</dimensiunea>
+        <produse_vandute>SOLD PRODUCTS</produse_vandute>
+        <nume_parfum>PERFUME NAME</nume_parfum>
+        <nume_magazin>STORE NAME</nume_magazin>
+
+        <actualizare>UPDATE</actualizare>
+        <salvare>SAVE</salvare>
+        <stergere>DELETE</stergere>
+        <afisare_parfmuri>LIST PERFUMES</afisare_parfmuri>
+        <afisare_parfmuri_magazin>PERFUMES FROM STORE</afisare_parfmuri_magazin>
+        <salvare_formate>SAVE IN MORE FORMATS</salvare_formate>
+        <filtrare_producator>FILTRATION BY MANUFACTURER</filtrare_producator>
+        <filtrare_disponibilitate>FILTER BY AVAILABILITY</filtrare_disponibilitate>
+        <cautare_parfum>PERFUME SEARCH</cautare_parfum>
+        <filtrare_pret>FILTER BY PRICE</filtrare_pret>
+        <statistici>STATISTICS</statistici>
+    </engleza>
+
+    <germana>
+        <nume_producator>NAME DES HERSTELLERS</nume_producator>
+        <produse_ramase>RESTLICHE PRODUKTE</produse_ramase>
+        <cod_de_bare>STRICHCODE</cod_de_bare>
+        <pret>PREIS</pret>
+        <dimensiunea>ABMESSUNG IN ML</dimensiunea>
+        <produse_vandute>VERKAUFTE PRODUKTE</produse_vandute>
+        <nume_parfum>PARFUMNAME</nume_parfum>
+        <nume_magazin>NAME DES GESCHÄFTS</nume_magazin>
+
+        <actualizare>AKTUALISIEREN</actualizare>
+        <salvare>BERGUNG</salvare>
+        <stergere>KLAR</stergere>
+        <afisare_parfmuri>PARFUMS ANZEIGEN</afisare_parfmuri>
+        <afisare_parfmuri_magazin>PARFÜME AUS DEM LADEN</afisare_parfmuri_magazin>
+        <salvare_formate>SPEICHERN SIE IN MEHR FORMAT</salvare_formate>
+        <filtrare_producator>FILTRIERUNG NACH HERSTELLER</filtrare_producator>
+        <filtrare_disponibilitate>VERFÜGBARKEIT FILTERN</filtrare_disponibilitate>
+        <cautare_parfum>PARFÜMSUCHE</cautare_parfum>
+        <filtrare_pret>PREIS FILTERN</filtrare_pret>
+        <statistici>STATISTIKEN</statistici>
+    </germana>
+
+    <franceza>
+        <nume_producator>NOM DU FABRICANT</nume_producator>
+        <produse_ramase>PRODUITS RESTANTS</produse_ramase>
+        <cod_de_bare>CODE À BARRE</cod_de_bare>
+        <pret>PRIX</pret>
+        <dimensiunea>DIMENSIONS EN ML</dimensiunea>
+        <produse_vandute>PRODUITS VENDUS</produse_vandute>
+        <nume_parfum>NOM DU PARFUM</nume_parfum>
+        <nume_magazin>NOM DU MAGASIN</nume_magazin>
+
+        <actualizare>METTRE À JOUR</actualizare>
+        <salvare>SAUVETAGE</salvare>
+        <stergere>DÉGAGER</stergere>
+        <afisare_parfmuri>AFFICHER LES PARFUMS</afisare_parfmuri>
+        <afisare_parfmuri_magazin>PARFUMS DU MAGASIN</afisare_parfmuri_magazin>
+        <salvare_formate>ÉCONOMISER DANS PLUS DE FORMATS</salvare_formate>
+        <filtrare_producator>FILTRATION PAR FABRICANT</filtrare_producator>
+        <filtrare_disponibilitate>FILTRER PAR DISPONIBILITÉ</filtrare_disponibilitate>
+        <cautare_parfum>RECHERCHE DE PARFUM</cautare_parfum>
+        <filtrare_pret>FILTRER PAR PRIX</filtrare_pret>
+        <statistici>STATISTIQUES</statistici>
+    </franceza>
+
+</limbi>
