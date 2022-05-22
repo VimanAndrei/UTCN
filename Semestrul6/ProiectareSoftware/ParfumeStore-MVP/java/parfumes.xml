@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<parfumes>
+    <parfume>
+        <storName>Sephora</storName>
+        <parfumeName>Sephora</parfumeName>
+        <manufacturerName>Paco Rabanne</manufacturerName>
+        <numberOfCopies>10</numberOfCopies>
+        <barCode>192123</barCode>
+        <price>550</price>
+        <parfumeAmount>300</parfumeAmount>
+        <numberOfSoldCopies>4</numberOfSoldCopies>
+    </parfume>
+
+    <parfume>
+        <storName>Marionnaud</storName>
+        <parfumeName>One million</parfumeName>
+        <manufacturerName>Paco Rabanne</manufacturerName>
+        <numberOfCopies>9</numberOfCopies>
+        <barCode>192189</barCode>
+        <price>458</price>
+        <parfumeAmount>200</parfumeAmount>
+        <numberOfSoldCopies>10</numberOfSoldCopies>
+    </parfume>
+
+    <parfume>
+        <storName>Sephora</storName>
+        <parfumeName>Tresor</parfumeName>
+        <manufacturerName>Lancome</manufacturerName>
+        <numberOfCopies>13</numberOfCopies>
+        <barCode>192212</barCode>
+        <price>350</price>
+        <parfumeAmount>100</parfumeAmount>
+        <numberOfSoldCopies>5</numberOfSoldCopies>
+    </parfume>
+
+    <parfume>
+        <storName>Marionnaud</storName>
+        <parfumeName>Tresor</parfumeName>
+        <manufacturerName>Lancome</manufacturerName>
+        <numberOfCopies>13</numberOfCopies>
+        <barCode>192212</barCode>
+        <price>340</price>
+        <parfumeAmount>100</parfumeAmount>
+        <numberOfSoldCopies>5</numberOfSoldCopies>
+    </parfume>
+
+
+
+    
+<parfume><storName>ana</storName><parfumeName>ana</parfumeName><manufacturerName>ana</manufacturerName><numberOfCopies>0</numberOfCopies><barCode>111</barCode><price>1.0</price><parfumeAmount>150</parfumeAmount><numberOfSoldCopies>22</numberOfSoldCopies></parfume></parfumes>
