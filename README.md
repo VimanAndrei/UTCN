@@ -87,6 +87,16 @@
           📕 Software Design
         </a>
       </li> 
+      <li>
+       <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul6/ProiectareSoftware">
+          📕 Formal Languages and Translator
+        </a>
+      </li> 
+       <li>
+       <a href="https://github.com/VimanAndrei/UTCN/tree/main/Semestrul6/ProiectareSoftware">
+          📕 Intelligent Systems
+        </a>
+      </li> 
     </ul>
     
 
