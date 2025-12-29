@@ -98,6 +98,15 @@
         </a>
       </li> 
     </ul>
+
+  <li>:open_file_folder: Semester 7
+    <ul>
+    <li>
+       <a href="https://github.com/orgs/DS2022-30242-Viman-Andrei/repositories">
+          📔 Distributed Systems
+        </a>
+      </li> 
+    </ul>
     
 
 
