@@ -109,7 +109,5 @@
     </ul>
     
 
-
-
 ## The site of the UTCN is [here](https://ac.utcluj.ro/acasa.html).
 
